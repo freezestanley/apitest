@@ -16,13 +16,13 @@ function mkdirsSync(dirname) {
   }
 }
 
-String.prototype.LTrim = function() {  
-  return this.replace(/(^\s*)/g, "");  
-}  
+String.prototype.LTrim = function() {
+  return this.replace(/(^\s*)/g, "");
+}
 
-String.prototype.RTrim = function() {  
-  return this.replace(/(\s*$)/g, "");  
-} 
+String.prototype.RTrim = function() {
+  return this.replace(/(\s*$)/g, "");
+}
 
 function splitString (str) {
   debugger
@@ -124,7 +124,7 @@ var block = {
   },
   '__params': (str, root) => {
     root.params = root.params ? root.params : []
-    var a = splitString(str) 
+    var a = splitString(str)
     root.params.push(a)
   },
   '__return': (str, root) => {
@@ -147,7 +147,7 @@ function createPoint (type, e, root) {
     blockNode(e, root)
   }
 }
-var currentNode 
+var currentNode
 var rootNode
 function createTree (arr) {
   debugger
@@ -187,7 +187,7 @@ module.exports = function(source) {
   const options = loaderUtils.getOptions(this);
   // console.dir(options)
   // console.log('resourcePath = ' + this.resourcePath)
-  const filename = this.resourcePath.substr(this.resourcePath.lastIndexOf('/') + 1).split('.')[0]
+  const filename = this.resourcePath.substr(this.resourcePath.lastIndexOf('/') + 1).split('.')[1]
   const extension = (options && options.extension) || '.json'
   // const dir = `${this.context}/__tests__`
   const dir = __dirname
@@ -207,7 +207,7 @@ module.exports = function(source) {
   var z = str.split('@')
   var b = []
   z.map((e, idx, arr) => {
-    if (e.length > 3) 
+    if (e.length > 3)
       b.push('__' + e)
   })
   if (str.length > 0) {
@@ -218,10 +218,10 @@ module.exports = function(source) {
     var list = []
     var gg = new Set(global.target)
     // console.log(gg)
-    gg.forEach(function (item) {  
+    gg.forEach(function (item) {
       console.log(item)
       list.push(item)
-    }); 
+    });
 
     // gg.forEach(function (e, i, s) {
     //   console.log(e)
