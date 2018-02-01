@@ -233,7 +233,7 @@ module.exports = function(source) {
     //   console.log('----------')
     // })
     mkdirsSync(path.join(__dirname, '../doc/json'))
-    fs.writeFileSync(path.join(__dirname, 'doc/json/index.json'), JSON.stringify())
+    fs.writeFileSync(path.join(__dirname, '../doc/json/index.json'), JSON.stringify())
   }
   return source
 }
