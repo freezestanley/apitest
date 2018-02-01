@@ -193,7 +193,7 @@ module.exports = function(source) {
   const dir = __dirname
   // console.log('filename=' + filename + ' extension =' + extension + ' dir=' + dir)
   console.dir('context =' + this.context)
-  const rpath = path.join(__dirname, 'doc/json/empty', path.relative(__dirname, this.context))
+  const rpath = path.join(__dirname, '../doc/json/empty', path.relative(__dirname, this.context))
   console.dir('rpath =' + rpath)
   mkdirsSync(rpath)
   global.target.push(path.relative(__dirname, this.context) + '/' + filename + extension)
@@ -232,7 +232,7 @@ module.exports = function(source) {
     //   console.log('cu = ' + cu)
     //   console.log('----------')
     // })
-    mkdirsSync(path.join(__dirname, 'doc/json'))
+    mkdirsSync(path.join(__dirname, '../doc/json'))
     fs.writeFileSync(path.join(__dirname, 'doc/json/index.json'), JSON.stringify())
   }
   return source
