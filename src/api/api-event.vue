@@ -7,7 +7,7 @@
 <script>
 import apiTable from './components/api-table'
 export default {
-  name: 'api-class',
+  name: 'api-event',
   components: {
     apiTable
   },
@@ -20,15 +20,12 @@ export default {
     type: {
       type: String
     },
-    name: {
-      type: String
-    },
-    descript: {
-      type: String
+    list: {
+      type: Array
     }
   },
   created () {
-    this.tableData = [{name: this.name, descript: this.descript}]
+    this.tableData = this.list
   }
 }
 </script>

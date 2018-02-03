@@ -23,7 +23,8 @@ export default {
 
 <style lang='scss' rel="stylesheet/scss">
   .api-index {
-    padding: 0 10px;
+    padding: 0 10px 60px;
+    box-sizing: border-box;
     & > .title {
       padding: 30px 0;
       border-bottom: 2px solid #ccc;
