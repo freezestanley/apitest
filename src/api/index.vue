@@ -6,17 +6,22 @@
 </template>
 
 <script>
-// import json from '../../doc/json/src/components/demo1.json'
 import apiTemplate from './api-template'
-import json from '../../doc/json/src/components/demo1.json'
-console.log('json=', json)
+import demo1 from '../../doc/json/src/components/demo1.json'
+import HelloWorld from '../../doc/json/src/components/HelloWorld.json'
+
 export default {
   name: 'index',
   components: {
     apiTemplate
   },
   created () {
-    this.item = json
+    let name = this.$route.query.name
+    if (name === 'demo1') {
+      this.item = demo1
+    } else if (name === 'HelloWorld') {
+      this.item = HelloWorld
+    }
   }
 }
 </script>
