@@ -42,6 +42,11 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     quiet: true, // necessary for FriendlyErrorsPlugin
     watchOptions: {
       poll: config.dev.poll,
+    },
+    before (app) {
+      app.use('/doc', function(req, res) {
+        res.sendFile(path.join(__dirname , `../doc${req.url}.json`));
+      });
     }
   },
   plugins: [

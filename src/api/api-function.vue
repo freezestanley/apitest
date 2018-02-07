@@ -10,7 +10,7 @@
 <script>
 import apiTable from './components/api-table'
 import apiModal from './components/api-modal'
-let allFunctions = []
+let allFunctions
 let transformData = (list, parentLevel, parentLevelName) => {
   if (!list) {
     return
@@ -49,6 +49,7 @@ export default {
     }
   },
   created () {
+    allFunctions = []
     transformData(this.list)
     this.filterData()
     this.tableData = allFunctions

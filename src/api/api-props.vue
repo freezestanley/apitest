@@ -10,7 +10,7 @@
 <script>
 import apiTable from './components/api-table'
 import apiModal from './components/api-modal'
-import util from './util'
+import util from './utils/index'
 export default {
   name: 'api-props',
   components: {
