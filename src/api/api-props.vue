@@ -10,6 +10,7 @@
 <script>
 import apiTable from './components/api-table'
 import apiModal from './components/api-modal'
+import util from './util'
 export default {
   name: 'api-props',
   components: {
@@ -32,32 +33,9 @@ export default {
     }
   },
   created () {
-    this.tableData = this.transferList(this.list)
+    this.tableData = util.transferList(this.list)
   },
   methods: {
-    transferAttr (list) {
-      for (let i in list) {
-        let val = list[i]
-        for (let key in val.defVal) {
-          list[i].name = key
-          list[i].defaultValue = val.defVal[key]
-          delete list[i].defVal
-        }
-      }
-      return list
-    },
-    transferList (list) {
-      for (let i in list) {
-        let val = list[i]
-        if (val.params) {
-          val.params = this.transferAttr(val.params)
-        }
-        if (val.attr) {
-          val.attr = this.transferAttr(val.attr)
-        }
-      }
-      return list
-    },
     viewDetails (item) {
       console.log(item)
       this.details = [item]

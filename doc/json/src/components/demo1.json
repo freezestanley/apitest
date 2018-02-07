@@ -136,9 +136,11 @@
       "descript": "adfasdfsffs",
       "attr": [
         {
-          "defVal": {
-            "as": "1231"
-          }
+          "get" : "description"
+
+        },
+        {
+          "set" : "description"
         }
       ]
     },
