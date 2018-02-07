@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     getData (name) {
-      this.axios.get(`/doc/json/src/components/${name}`).then((response) => {
+      this.axios.get(`/json/src/components/${name}.json`).then((response) => {
         this.item = response.data
       })
     }

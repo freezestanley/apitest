@@ -29,7 +29,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       ],
     },
     hot: true,
-    contentBase: false, // since we use CopyWebpackPlugin.
+    contentBase: path.join(__dirname , `../doc`), // since we use CopyWebpackPlugin.
     compress: true,
     host: HOST || config.dev.host,
     port: PORT || config.dev.port,
@@ -44,9 +44,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       poll: config.dev.poll,
     },
     before (app) {
-      app.use('/doc', function(req, res) {
-        res.sendFile(path.join(__dirname , `../doc${req.url}.json`));
-      });
+      // app.use('/doc', function(req, res) {
+      //   res.sendFile(path.join(__dirname , `../doc${req.url}.json`));
+      // });
     }
   },
   plugins: [
