@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import apiTable from './components/api-table'
-import apiModal from './components/api-modal'
+import apiTable from '../components/api-table'
+import apiModal from '../components/api-modal'
 let allFunctions
 let transformData = (list, parentLevel, parentLevelName) => {
   if (!list) {

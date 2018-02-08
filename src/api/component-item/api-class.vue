@@ -5,9 +5,9 @@
 </template>
 
 <script>
-import apiTable from './components/api-table'
+import apiTable from '../components/api-table'
 export default {
-  name: 'api-components',
+  name: 'api-class',
   components: {
     apiTable
   },
@@ -20,16 +20,15 @@ export default {
     type: {
       type: String
     },
-    list: {
-      type: Array
+    name: {
+      type: String
+    },
+    descript: {
+      type: String
     }
   },
   created () {
-    let list = []
-    for (let index in this.list) {
-      list[index] = {name: this.list[index]}
-    }
-    this.tableData = list
+    this.tableData = [{name: this.name, descript: this.descript}]
   }
 }
 </script>

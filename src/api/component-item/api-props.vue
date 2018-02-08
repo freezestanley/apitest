@@ -8,11 +8,11 @@
 </template>
 
 <script>
-import apiTable from './components/api-table'
-import apiModal from './components/api-modal'
-import util from './utils/index'
+import apiTable from '../components/api-table'
+import apiModal from '../components/api-modal'
+import util from '../utils/index'
 export default {
-  name: 'api-watch',
+  name: 'api-props',
   components: {
     apiTable,
     apiModal

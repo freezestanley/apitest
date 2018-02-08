@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import apiTable from './components/api-table'
+import apiTable from '../components/api-table'
 export default {
   name: 'api-mixins',
   components: {

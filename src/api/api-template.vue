@@ -1,14 +1,14 @@
 <script>
-import apiClass from './api-class'
-import apiComponents from './api-components'
-import apiComputed from './api-computed'
-import apiEvent from './api-event'
-import apiExtend from './api-extend'
-import apiFunction from './api-function'
-import apiMethods from './api-methods'
-import apiMixins from './api-mixins'
-import apiProps from './api-props'
-import apiWatch from './api-watch'
+import apiClass from './component-item/api-class'
+import apiComponents from './component-item/api-components'
+import apiComputed from './component-item/api-computed'
+import apiEvent from './component-item/api-event'
+import apiExtend from './component-item/api-extend'
+import apiFunction from './component-item/api-function'
+import apiMethods from './component-item/api-methods'
+import apiMixins from './component-item/api-mixins'
+import apiProps from './component-item/api-props'
+import apiWatch from './component-item/api-watch'
 
 export default {
   functional: true,
