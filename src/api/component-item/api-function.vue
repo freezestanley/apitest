@@ -72,7 +72,6 @@ export default {
       allFunctions = list
     },
     viewDetails (item) {
-      console.log(item)
       this.details = [item]
       this.showModal = true
     },

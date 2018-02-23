@@ -37,7 +37,6 @@ export default {
   },
   methods: {
     viewDetails (item) {
-      console.log(item)
       this.details = [item]
       this.showModal = true
     },

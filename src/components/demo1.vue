@@ -54,7 +54,6 @@ export default {
   props: {
     /**
      * @props propA - asdfadfadf
-     * @params {String|Number} [propA = 123]
      * @attr [required = true]
      * @attr [validator = asfddaf]
      */
