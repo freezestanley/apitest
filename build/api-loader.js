@@ -1,5 +1,7 @@
 const fs = require('fs')
 const path = require('path')
+// const babel = require('babel-core')
+// const babelPluginTransformRelativePaths = require('babel-plugin-transform-relative-paths')
 const loaderUtils = require('loader-utils')
 
 global.target = []
@@ -23,6 +25,7 @@ String.prototype.RTrim = function() {
 } 
 
 function splitString (str) {
+  debugger
   var regline = /^(__)(\w+)(\s|.)/
   var shortLine = /\s-\s/g
   var bigBracket = /\{(\S*)\}/
@@ -135,10 +138,26 @@ var block = {
 }
 
 function customNode (str, root, tp) {
+  // console.log(rootNode);
+  // console.log(root)
+  console.log(tp)
   let key = tp.replace('__', '');
   root[key] = root[key] ? root[key] : []
   let a = splitString(str)
   root[key].push(a)
+  // root[key].push(str);
+  // currentNode = a;
+  // for(let key in rootNode){
+  //   console.log(key)
+  //   if(tp == key){
+
+  //   }
+    // let __key = key.replace('__', '');
+    // rootNode[__key] = rootNode[__key] ? rootNode[__key] : []
+    // var a = splitString(str)
+    // rootNode[__key].push(a)
+    // currentNode = a
+  // }
 }
 function createPoint (type, e, root) {
   var tp = type.replace(/(^\s*)|(\s*$)/g, "")
@@ -213,26 +232,39 @@ module.exports = function(source) {
     var root = createTree(b, rootNode)
     const filepath = `${rpath}/${filename}${extension}`
     fs.writeFileSync(filepath, JSON.stringify(root))
+    // var list = []
+    // }); 
 
-    function dirTree(filename) {
-        var stats = fs.lstatSync(filename),
-            info = {
-                path: filename,
-                name: path.basename(filename)
-            };
+    // gg.forEach(function (e, i, s) {
+    // })
+    // global.target.reduce((pr, cu, idx, arr) => {
+    // })
 
-        if (stats.isDirectory()) {
-          info.type = "folder";
-          info.children = fs.readdirSync(filename).map(function(child) {
+function dirTree(filename) {
+    var stats = fs.lstatSync(filename),
+        info = {
+            path: filename,
+            name: path.basename(filename)
+        };
+
+    if (stats.isDirectory()) {
+        info.type = "folder";
+        info.children = fs.readdirSync(filename).map(function(child) {
             return dirTree(filename + '/' + child);
-          });
-        } else {
-          info.type = "file";
-        }
-        return info;
+        });
+    } else {
+        // Assuming it's a file. In real life it could be a symlink or
+        // something else!
+        info.type = "file";
     }
+    return info;
+}
+
+
+
     mkdirsSync(path.join('./', 'doc/json'))
     fs.writeFileSync(path.join('./', 'doc/json/index.json'), JSON.stringify(dirTree(path.join('./', 'doc/json'))))
+    
   }
   return source
 }
