@@ -1,10 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const loaderUtils = require('loader-utils')
-const inlineRulse = require('./rules/inline')
-const blockRules = require('./rules/block')
-var currentNode
-var rootNode
+
 global.target = []
 function mkdirsSync(dirname) {
   if (fs.existsSync(dirname)) {
@@ -17,13 +14,13 @@ function mkdirsSync(dirname) {
   }
 }
 
-String.prototype.LTrim = function() {
-  return this.replace(/(^\s*)/g, "");
-}
+String.prototype.LTrim = function() {  
+  return this.replace(/(^\s*)/g, "");  
+}  
 
-String.prototype.RTrim = function() {
-  return this.replace(/(\s*$)/g, "");
-}
+String.prototype.RTrim = function() {  
+  return this.replace(/(\s*$)/g, "");  
+} 
 
 function splitString (str) {
   var regline = /^(__)(\w+)(\s|.)/
@@ -61,6 +58,82 @@ function splitString (str) {
   }
   return origin
 }
+
+var inline = {
+  '__class': (str, root) => {
+    rootNode.class = splitString(str)
+    currentNode = rootNode
+  },
+  '__mixins': (str, root) => {
+    rootNode.mixins = str.split(',')
+    currentNode = rootNode
+  },
+  '__extends': (str, root) => {
+    rootNode.extend = str
+    currentNode = rootNode
+  },
+  '__components': (str, root) => {
+    rootNode.components = str.split(',')
+    currentNode = rootNode
+  },
+  '__watch': (str, root) => {
+    rootNode.watch = rootNode.watch ? rootNode.watch : []
+    var a = splitString(str)
+    rootNode.watch.push(a)
+    currentNode = a
+  },
+  '__props': (str, root) => {
+    rootNode.props = rootNode.props ? rootNode.props : []
+    var a = splitString(str)
+    rootNode.props.push(a)
+    currentNode = a
+  },
+  '__computed': (str, root) => {
+    rootNode.computed = rootNode.computed ? rootNode.computed : []
+    var a = splitString(str)
+    rootNode.computed.push(a)
+    currentNode = a
+  },
+  '__methods': (str, root) => {
+    rootNode.methods = rootNode.methods ? rootNode.methods : []
+    var a = splitString(str)
+    rootNode.methods.push(a)
+    currentNode = a
+  },
+  '__event': (str, root) => {
+    rootNode.event = rootNode.event ? rootNode.event : []
+    var a = splitString(str)
+    rootNode.event.push(a)
+    currentNode = a
+  }
+}
+var block = {
+  '__attr': (str, root) => {
+    root.attr = root.attr ? root.attr : []
+    var a = splitString(str)
+    root.attr.push(a)
+  },
+  '__function': (str, root) => {
+    root.function = root.function ? root.function : []
+    var a = splitString(str)
+    root.function.push(a)
+    currentNode = a
+  },
+  '__params': (str, root) => {
+    root.params = root.params ? root.params : []
+    var a = splitString(str) 
+    root.params.push(a)
+  },
+  '__return': (str, root) => {
+    var a = splitString(str)
+    root.return = a
+  },
+  '__example': (str, root) => {
+    root.example = root.example ? root.example : []
+    root.example.push(str)
+  }
+}
+
 function customNode (str, root, tp) {
   let key = tp.replace('__', '');
   root[key] = root[key] ? root[key] : []
@@ -72,13 +145,15 @@ function createPoint (type, e, root) {
   var inlineNode = inline[tp]
   var blockNode = block[tp]
   if (inlineNode) {
-    inlineNode(e, root, currentNode, rootNode)
+    inlineNode(e, root)
   } else if (blockNode) {
-    blockNode(e, root, currentNode, rootNode)
+    blockNode(e, root)
   } else {
     customNode(e, root, tp)
   }
 }
+var currentNode 
+var rootNode
 function createTree (arr) {
   debugger
   var reg = /(__)(\w+)(\s|.)/g
@@ -113,31 +188,9 @@ function getNav (arr, obj = {}) {
   }
   return obj
 }
-function dirTree(filename) {
-  var stats = fs.lstatSync(filename),
-      info = {
-          path: filename,
-          name: path.basename(filename)
-      };
-
-  if (stats.isDirectory()) {
-      info.type = "folder";
-      info.children = fs.readdirSync(filename).map(function(child) {
-          return dirTree(filename + '/' + child);
-      });
-  } else {
-      info.type = "file";
-  }
-  return info;
-}
-
-var inline = inlineRulse(splitString, currentNode, rootNode)
-var block = blockRules(splitString, currentNode, rootNode)
 module.exports = function(source) {
   const options = loaderUtils.getOptions(this);
-  // console.dir(options)
-  // console.log('resourcePath = ' + this.resourcePath)
-  const filename = this.resourcePath.substr(this.resourcePath.lastIndexOf('/') + 1).split('.')[1]
+  const filename = this.resourcePath.substr(this.resourcePath.lastIndexOf('/') + 1).split('.')[0]
   const extension = (options && options.extension) || '.json'
   const dir = __dirname
   const rpath = path.join('./', 'doc/json', path.relative(__dirname, this.context))
@@ -153,13 +206,31 @@ module.exports = function(source) {
   var z = str.split('@')
   var b = []
   z.map((e, idx, arr) => {
-    if (e.length > 3)
+    if (e.length > 3) 
       b.push('__' + e)
   })
   if (str.length > 0) {
     var root = createTree(b, rootNode)
     const filepath = `${rpath}/${filename}${extension}`
     fs.writeFileSync(filepath, JSON.stringify(root))
+
+    function dirTree(filename) {
+        var stats = fs.lstatSync(filename),
+            info = {
+                path: filename,
+                name: path.basename(filename)
+            };
+
+        if (stats.isDirectory()) {
+          info.type = "folder";
+          info.children = fs.readdirSync(filename).map(function(child) {
+            return dirTree(filename + '/' + child);
+          });
+        } else {
+          info.type = "file";
+        }
+        return info;
+    }
     mkdirsSync(path.join('./', 'doc/json'))
     fs.writeFileSync(path.join('./', 'doc/json/index.json'), JSON.stringify(dirTree(path.join('./', 'doc/json'))))
   }
