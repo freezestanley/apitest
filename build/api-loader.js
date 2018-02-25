@@ -60,6 +60,74 @@ function splitString (str) {
   return origin
 }
 
+function customNode (str, root, tp) {
+  console.log(tp)
+  let key = tp.replace('__', '');
+  root[key] = root[key] ? root[key] : []
+  let a = splitString(str)
+  root[key].push(a)
+}
+function createPoint (type, e, root) {
+  var tp = type.replace(/(^\s*)|(\s*$)/g, "")
+  var inlineNode = inline[tp]
+  var blockNode = block[tp]
+  if (inlineNode) {
+    inlineNode(e, root)
+  } else if (blockNode) {
+    blockNode(e, root)
+  } else {
+    customNode(e, root, tp)
+  }
+}
+function createTree (arr) {
+  var reg = /(__)(\w+)(\s|.)/g
+  rootNode = {}
+  currentNode = rootNode
+  if (arr.length > 0) {
+    arr.map((e, idx, arr) => {
+      if ((/^\s/g.test(e)) && e.length <= 1) {
+      } else{
+        var result = e.match(reg)[0]
+        if (result) {
+          createPoint(result, e, currentNode)
+        }
+      }
+    })
+  }
+  return rootNode
+}
+function getNav (arr, obj = {}) {
+  if (arr.length == 0) {
+    return
+  }
+  var dom = arr.shift()
+  var start = dom.indexOf('.json')
+  if (dom.indexOf('.json') > 0) {
+    var filename = dom.substr(0, start)
+    obj[filename] = dom
+  } else {
+    obj[dom] = {}
+    getNav(arr,obj[dom])
+  }
+  return obj
+}
+function dirTree(filename) {
+  var stats = fs.lstatSync(filename),
+      info = {
+        path: filename,
+        name: path.basename(filename)
+      };
+
+  if (stats.isDirectory()) {
+    info.type = "folder";
+    info.children = fs.readdirSync(filename).map(function(child) {
+      return dirTree(filename + '/' + child);
+    });
+  } else {
+    info.type = "file";
+  }
+  return info;
+}
 var inline = {
   '__class': (str, root) => {
     rootNode.class = splitString(str)
@@ -133,75 +201,6 @@ var block = {
     root.example = root.example ? root.example : []
     root.example.push(str)
   }
-}
-
-function customNode (str, root, tp) {
-  console.log(tp)
-  let key = tp.replace('__', '');
-  root[key] = root[key] ? root[key] : []
-  let a = splitString(str)
-  root[key].push(a)
-}
-function createPoint (type, e, root) {
-  var tp = type.replace(/(^\s*)|(\s*$)/g, "")
-  var inlineNode = inline[tp]
-  var blockNode = block[tp]
-  if (inlineNode) {
-    inlineNode(e, root)
-  } else if (blockNode) {
-    blockNode(e, root)
-  } else {
-    customNode(e, root, tp)
-  }
-}
-function createTree (arr) {
-  var reg = /(__)(\w+)(\s|.)/g
-  rootNode = {}
-  currentNode = rootNode
-  if (arr.length > 0) {
-    arr.map((e, idx, arr) => {
-      if ((/^\s/g.test(e)) && e.length <= 1) {
-      } else{
-        var result = e.match(reg)[0]
-        if (result) {
-          createPoint(result, e, currentNode)
-        }
-      }
-    })
-  }
-  return rootNode
-}
-function getNav (arr, obj = {}) {
-  if (arr.length == 0) {
-    return
-  }
-  var dom = arr.shift()
-  var start = dom.indexOf('.json')
-  if (dom.indexOf('.json') > 0) {
-    var filename = dom.substr(0, start)
-    obj[filename] = dom
-  } else {
-    obj[dom] = {}
-    getNav(arr,obj[dom])
-  }
-  return obj
-}
-function dirTree(filename) {
-  var stats = fs.lstatSync(filename),
-      info = {
-          path: filename,
-          name: path.basename(filename)
-      };
-
-  if (stats.isDirectory()) {
-    info.type = "folder";
-    info.children = fs.readdirSync(filename).map(function(child) {
-      return dirTree(filename + '/' + child);
-    });
-  } else {
-    info.type = "file";
-  }
-  return info;
 }
 module.exports = function(source) {
   const options = loaderUtils.getOptions(this);
