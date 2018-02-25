@@ -1,9 +1,8 @@
 const fs = require('fs')
 const path = require('path')
-// const babel = require('babel-core')
-// const babelPluginTransformRelativePaths = require('babel-plugin-transform-relative-paths')
 const loaderUtils = require('loader-utils')
-
+var currentNode 
+var rootNode
 global.target = []
 function mkdirsSync(dirname) {
   if (fs.existsSync(dirname)) {
@@ -25,7 +24,6 @@ String.prototype.RTrim = function() {
 } 
 
 function splitString (str) {
-  debugger
   var regline = /^(__)(\w+)(\s|.)/
   var shortLine = /\s-\s/g
   var bigBracket = /\{(\S*)\}/
@@ -138,26 +136,11 @@ var block = {
 }
 
 function customNode (str, root, tp) {
-  // console.log(rootNode);
-  // console.log(root)
   console.log(tp)
   let key = tp.replace('__', '');
   root[key] = root[key] ? root[key] : []
   let a = splitString(str)
   root[key].push(a)
-  // root[key].push(str);
-  // currentNode = a;
-  // for(let key in rootNode){
-  //   console.log(key)
-  //   if(tp == key){
-
-  //   }
-    // let __key = key.replace('__', '');
-    // rootNode[__key] = rootNode[__key] ? rootNode[__key] : []
-    // var a = splitString(str)
-    // rootNode[__key].push(a)
-    // currentNode = a
-  // }
 }
 function createPoint (type, e, root) {
   var tp = type.replace(/(^\s*)|(\s*$)/g, "")
@@ -171,17 +154,13 @@ function createPoint (type, e, root) {
     customNode(e, root, tp)
   }
 }
-var currentNode 
-var rootNode
 function createTree (arr) {
-  debugger
   var reg = /(__)(\w+)(\s|.)/g
   rootNode = {}
   currentNode = rootNode
   if (arr.length > 0) {
     arr.map((e, idx, arr) => {
       if ((/^\s/g.test(e)) && e.length <= 1) {
-
       } else{
         var result = e.match(reg)[0]
         if (result) {
@@ -206,6 +185,23 @@ function getNav (arr, obj = {}) {
     getNav(arr,obj[dom])
   }
   return obj
+}
+function dirTree(filename) {
+  var stats = fs.lstatSync(filename),
+      info = {
+          path: filename,
+          name: path.basename(filename)
+      };
+
+  if (stats.isDirectory()) {
+    info.type = "folder";
+    info.children = fs.readdirSync(filename).map(function(child) {
+      return dirTree(filename + '/' + child);
+    });
+  } else {
+    info.type = "file";
+  }
+  return info;
 }
 module.exports = function(source) {
   const options = loaderUtils.getOptions(this);
@@ -232,36 +228,6 @@ module.exports = function(source) {
     var root = createTree(b, rootNode)
     const filepath = `${rpath}/${filename}${extension}`
     fs.writeFileSync(filepath, JSON.stringify(root))
-    // var list = []
-    // }); 
-
-    // gg.forEach(function (e, i, s) {
-    // })
-    // global.target.reduce((pr, cu, idx, arr) => {
-    // })
-
-function dirTree(filename) {
-    var stats = fs.lstatSync(filename),
-        info = {
-            path: filename,
-            name: path.basename(filename)
-        };
-
-    if (stats.isDirectory()) {
-        info.type = "folder";
-        info.children = fs.readdirSync(filename).map(function(child) {
-            return dirTree(filename + '/' + child);
-        });
-    } else {
-        // Assuming it's a file. In real life it could be a symlink or
-        // something else!
-        info.type = "file";
-    }
-    return info;
-}
-
-
-
     mkdirsSync(path.join('./', 'doc/json'))
     fs.writeFileSync(path.join('./', 'doc/json/index.json'), JSON.stringify(dirTree(path.join('./', 'doc/json'))))
     
