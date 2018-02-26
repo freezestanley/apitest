@@ -4,26 +4,20 @@
     <table>
       <thead>
         <tr>
-          <th v-for="(val, key) in tableData[0]" :key="key" v-if="key !== 'descript'">{{key}}</th>
-          <th v-for="(val, key) in tableData[0]" :key="key" v-if="key === 'descript'">{{key}}</th>
+          <th v-for="(val, index) of tableHead" :key="index">{{val}}</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(val, index) of tableData" :key="index">
-          <td v-for="(_val, key) in val" :key="key + index" v-if="key !== 'descript'">
-            <div class="params-list" v-if="Object.prototype.toString.call(_val) === '[object Array]'" >
-              <a v-for="(item, _key) in _val" :key="_key" @click="viewDetails(item)">{{item.name}}</a>
+          <td v-for="(key, _index) of tableHead" :key="_index">
+            <div class="params-list" v-if="Object.prototype.toString.call(val[key]) === '[object Array]'" >
+              <a v-for="(item, _key) in val[key]" :key="_key" @click="viewDetails(item)">{{item.name}}</a>
             </div>
-            <ul class="obj-info" v-else-if="Object.prototype.toString.call(_val) === '[object Object]'" >
-              <li v-for="(value, _key) in _val" :key="_key"><span>{{_key}}:</span> {{value}}</li>
+            <ul class="obj-info" v-else-if="Object.prototype.toString.call(val[key]) === '[object Object]'" >
+              <li v-for="(value, _key) in val[key]" :key="_key"><span>{{_key}}:</span> {{value}}</li>
             </ul>
             <span v-else>
-              {{_val}}
-            </span>
-          </td>
-          <td v-for="(_val, key) in val" :key="key + index" v-if="key === 'descript'">
-            <span>
-              {{_val}}
+              {{val[key]}}
             </span>
           </td>
         </tr>
@@ -36,6 +30,11 @@
 // import apiTemplate from './api-template'
 export default {
   name: 'api-table',
+  data () {
+    return {
+      tableHead: []
+    }
+  },
   props: {
     title: {
       type: String
@@ -44,9 +43,31 @@ export default {
       type: Array
     }
   },
+  created () {
+    this.changeTitle()
+  },
+  watch: {
+    tableData () {
+      this.changeTitle()
+    }
+  },
   methods: {
     viewDetails (item) {
       this.$emit('viewDetails', item)
+    },
+    changeTitle () {
+      let tableHead = []
+      for (let val of this.tableData) {
+        tableHead = Array.from(new Set([...tableHead, ...Object.keys(val)]))
+      }
+      for (let index in tableHead) {
+        if (tableHead[index] === 'descript' && index !== tableHead.length - 1) {
+          let val = tableHead.splice(index, 1)
+          tableHead.push(val[0])
+          break
+        }
+      }
+      this.tableHead = tableHead
     }
   }
 }
