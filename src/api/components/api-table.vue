@@ -4,12 +4,13 @@
     <table>
       <thead>
         <tr>
-          <th v-for="(val, key) in tableData[0]" :key="key">{{key}}</th>
+          <th v-for="(val, key) in tableData[0]" :key="key" v-if="key !== 'descript'">{{key}}</th>
+          <th v-for="(val, key) in tableData[0]" :key="key" v-if="key === 'descript'">{{key}}</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(val, index) of tableData" :key="index">
-          <td v-for="(_val, key) in val" :key="key + index">
+          <td v-for="(_val, key) in val" :key="key + index" v-if="key !== 'descript'">
             <div class="params-list" v-if="Object.prototype.toString.call(_val) === '[object Array]'" >
               <a v-for="(item, _key) in _val" :key="_key" @click="viewDetails(item)">{{item.name}}</a>
             </div>
@@ -17,6 +18,11 @@
               <li v-for="(value, _key) in _val" :key="_key"><span>{{_key}}:</span> {{value}}</li>
             </ul>
             <span v-else>
+              {{_val}}
+            </span>
+          </td>
+          <td v-for="(_val, key) in val" :key="key + index" v-if="key === 'descript'">
+            <span>
               {{_val}}
             </span>
           </td>
