@@ -4,13 +4,12 @@
     <table>
       <thead>
         <tr>
-          <th v-for="(val, index) of tableHead" :key="index" v-if="val !== 'descript'">{{val}}</th>
-          <th v-for="(val, index) of tableHead" :key="index" v-if="val === 'descript'">{{val}}</th>
+          <th v-for="(val, index) of tableHead" :key="index">{{val}}</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(val, index) of tableData" :key="index">
-          <td v-for="(key, _index) of tableHead" :key="_index" v-if="key !== 'descript'">
+          <td v-for="(key, _index) of tableHead" :key="_index">
             <div class="params-list" v-if="Object.prototype.toString.call(val[key]) === '[object Array]'" >
               <a v-for="(item, _key) in val[key]" :key="_key" @click="viewDetails(item)">{{item.name}}</a>
             </div>
@@ -18,11 +17,6 @@
               <li v-for="(value, _key) in val[key]" :key="_key"><span>{{_key}}:</span> {{value}}</li>
             </ul>
             <span v-else>
-              {{val[key]}}
-            </span>
-          </td>
-          <td v-for="(key, _index) of tableHead" :key="_index" v-if="key === 'descript'">
-            <span>
               {{val[key]}}
             </span>
           </td>
@@ -65,6 +59,13 @@ export default {
       let tableHead = []
       for (let val of this.tableData) {
         tableHead = Array.from(new Set([...tableHead, ...Object.keys(val)]))
+      }
+      for (let index in tableHead) {
+        if (tableHead[index] === 'descript' && index !== tableHead.length - 1) {
+          let val = tableHead.splice(index, 1)
+          tableHead.push(val[0])
+          break
+        }
       }
       this.tableHead = tableHead
     }
