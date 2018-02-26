@@ -11,7 +11,6 @@
 <script>
 import apiTemplate from './api-template'
 import { componentsList } from './config/index'
-import demo1 from '../../doc/src/components/demo1.json'
 export default {
   name: 'index',
   components: {
@@ -29,10 +28,9 @@ export default {
   },
   methods: {
     getData (name) {
-      this.item = demo1
-      // this.axios.get(`/json/src/components/${name}.json`).then((response) => {
-      //   this.item = response.data
-      // })
+      this.axios.get(`/json/src/components/${name}.json`).then((response) => {
+        this.item = response.data
+      })
     }
   },
   beforeRouteUpdate (to, from, next) {

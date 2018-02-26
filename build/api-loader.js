@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const loaderUtils = require('loader-utils')
-var currentNode 
+var currentNode
 var rootNode
 global.target = []
 function mkdirsSync(dirname) {
@@ -15,13 +15,13 @@ function mkdirsSync(dirname) {
   }
 }
 
-String.prototype.LTrim = function() {  
-  return this.replace(/(^\s*)/g, "");  
-}  
+String.prototype.LTrim = function() {
+  return this.replace(/(^\s*)/g, "");
+}
 
-String.prototype.RTrim = function() {  
-  return this.replace(/(\s*$)/g, "");  
-} 
+String.prototype.RTrim = function() {
+  return this.replace(/(\s*$)/g, "");
+}
 
 function splitString (str) {
   var regline = /^(__)(\w+)(\s|.)/
@@ -45,9 +45,6 @@ function splitString (str) {
   if (name) {
     origin.name = name[1]
   }
-  if (des) {
-    origin.descript = des.LTrim().RTrim()
-  }
   if (type) {
     origin.type = type[1].LTrim().RTrim()
   }
@@ -56,6 +53,9 @@ function splitString (str) {
     var def = {}
     def[defaultAttr[1]] = defaultAttr[2]
     origin.defVal = def
+  }
+  if (des) {
+    origin.descript = des.LTrim().RTrim()
   }
   return origin
 }
@@ -190,7 +190,7 @@ var block = {
   },
   '__params': (str, root) => {
     root.params = root.params ? root.params : []
-    var a = splitString(str) 
+    var a = splitString(str)
     root.params.push(a)
   },
   '__return': (str, root) => {
@@ -204,10 +204,10 @@ var block = {
 }
 module.exports = function(source) {
   const options = loaderUtils.getOptions(this);
-  const filename = this.resourcePath.substr(this.resourcePath.lastIndexOf('/') + 1).split('.')[0]
+  const filename = this.resourcePath.substr(this.resourcePath.lastIndexOf('\\') + 1).split('.')[0]
   const extension = (options && options.extension) || '.json'
   const dir = __dirname
-  const rpath = path.join('./', 'doc/json', path.relative(__dirname, this.context))
+  const rpath = path.join('./', 'doc/json/empty', path.relative(__dirname, this.context))
   mkdirsSync(rpath)
   global.target.push(path.relative(__dirname, this.context) + '/' + filename + extension)
   var patt = /\/\*{2}(\s|.|\S)*?\*\//g;
@@ -220,7 +220,7 @@ module.exports = function(source) {
   var z = str.split('@')
   var b = []
   z.map((e, idx, arr) => {
-    if (e.length > 3) 
+    if (e.length > 3)
       b.push('__' + e)
   })
   if (str.length > 0) {
@@ -229,7 +229,7 @@ module.exports = function(source) {
     fs.writeFileSync(filepath, JSON.stringify(root))
     mkdirsSync(path.join('./', 'doc/json'))
     fs.writeFileSync(path.join('./', 'doc/json/index.json'), JSON.stringify(dirTree(path.join('./', 'doc/json'))))
-    
+
   }
   return source
 }
