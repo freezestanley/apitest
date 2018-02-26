@@ -10,6 +10,7 @@
 <script>
 import apiTable from '../components/api-table'
 import apiModal from '../components/api-modal'
+import util from '../utils/index'
 let allFunctions
 let transformData = (list, parentLevel, parentLevelName) => {
   if (!list) {
@@ -69,10 +70,12 @@ export default {
           levelName: val.levelName
         }
       }
-      allFunctions = list
+      allFunctions = util.transferList(list)
+      // allFunctions = list
     },
     viewDetails (item) {
       this.details = [item]
+      console.log('item', item)
       this.showModal = true
     },
     hideModal () {
