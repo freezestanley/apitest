@@ -204,7 +204,13 @@ var block = {
 }
 module.exports = function(source) {
   const options = loaderUtils.getOptions(this);
-  const filename = this.resourcePath.substr(this.resourcePath.lastIndexOf('\\') + 1).split('.')[0]
+  let position = this.resourcePath.lastIndexOf('/')
+  var filename
+  if (position < 0) {
+    filename = this.resourcePath.substr(this.resourcePath.lastIndexOf('\\') + 1).split('.')[0]
+  } else {
+    filename = this.resourcePath.substr(this.resourcePath.lastIndexOf('/') + 1).split('.')[0]
+  }
   const extension = (options && options.extension) || '.json'
   const dir = __dirname
   const rpath = path.join('./', 'doc/json/empty', path.relative(__dirname, this.context))
