@@ -1,6 +1,7 @@
 module.exports = function (splitString) {
   return {
     '__class': (str, current, root) => {
+      console.log('str =' + str)
       root.class = splitString(str)
       current.node = root
     },

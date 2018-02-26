@@ -23,9 +23,9 @@ function test (a = 'A', b = 'B') {
 test()
 
 /**
- * @class [name = test-component] - test-component class
- * @mixins [name = mixin] - mixin object
- * @extends [name = extend] - extends
+ * @class test-component - test-component descript
+ * @mixins mixin - mixin object
+ * @extends extend - extends
  */
 export default {
   name: 'test-component',

@@ -28,11 +28,12 @@ String.prototype.RTrim = function() {
 }
 
 function splitString (str) {
+  debugger
   var regline = /^(__)(\w+)(\s|.)/
   var shortLine = /\s-\s/g
   var bigBracket = /\{(\S*)\}/
   var middleBracket = /\[(\S*)\s\=\s(\S*)\]/
-  var nameReg = /\s(\w+)\s-/g
+  var nameReg = /\s([A-Za-z0-9_+-/(/)]+)\s-/g
   var name = nameReg.exec(str)
   var contain = str.replace(regline, '')
   var start, des, header
