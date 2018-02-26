@@ -1,8 +1,12 @@
 const fs = require('fs')
 const path = require('path')
 const loaderUtils = require('loader-utils')
-var currentNode
+const inlineRules = require('./rules/inline')
+const blockRules = require('./rules/block')
+
+var currentNode = {node: null}
 var rootNode
+var test = {name: 'this is test'}
 global.target = []
 function mkdirsSync(dirname) {
   if (fs.existsSync(dirname)) {
@@ -67,14 +71,14 @@ function customNode (str, root, tp) {
   let a = splitString(str)
   root[key].push(a)
 }
-function createPoint (type, e, root) {
+function createPoint (type, e, root, node) {
   var tp = type.replace(/(^\s*)|(\s*$)/g, "")
   var inlineNode = inline[tp]
   var blockNode = block[tp]
   if (inlineNode) {
-    inlineNode(e, root)
+    inlineNode(e, root, node, test)
   } else if (blockNode) {
-    blockNode(e, root)
+    blockNode(e, root, node, test)
   } else {
     customNode(e, root, tp)
   }
@@ -82,14 +86,14 @@ function createPoint (type, e, root) {
 function createTree (arr) {
   var reg = /(__)(\w+)(\s|.)/g
   rootNode = {}
-  currentNode = rootNode
+  currentNode.node = rootNode
   if (arr.length > 0) {
     arr.map((e, idx, arr) => {
       if ((/^\s/g.test(e)) && e.length <= 1) {
       } else{
         var result = e.match(reg)[0]
         if (result) {
-          createPoint(result, e, currentNode)
+          createPoint(result, e, currentNode, rootNode)
         }
       }
     })
@@ -128,80 +132,83 @@ function dirTree(filename) {
   }
   return info;
 }
-var inline = {
-  '__class': (str, root) => {
-    rootNode.class = splitString(str)
-    currentNode = rootNode
-  },
-  '__mixins': (str, root) => {
-    rootNode.mixins = str.split(',')
-    currentNode = rootNode
-  },
-  '__extends': (str, root) => {
-    rootNode.extend = str
-    currentNode = rootNode
-  },
-  '__components': (str, root) => {
-    rootNode.components = str.split(',')
-    currentNode = rootNode
-  },
-  '__watch': (str, root) => {
-    rootNode.watch = rootNode.watch ? rootNode.watch : []
-    var a = splitString(str)
-    rootNode.watch.push(a)
-    currentNode = a
-  },
-  '__props': (str, root) => {
-    rootNode.props = rootNode.props ? rootNode.props : []
-    var a = splitString(str)
-    rootNode.props.push(a)
-    currentNode = a
-  },
-  '__computed': (str, root) => {
-    rootNode.computed = rootNode.computed ? rootNode.computed : []
-    var a = splitString(str)
-    rootNode.computed.push(a)
-    currentNode = a
-  },
-  '__methods': (str, root) => {
-    rootNode.methods = rootNode.methods ? rootNode.methods : []
-    var a = splitString(str)
-    rootNode.methods.push(a)
-    currentNode = a
-  },
-  '__event': (str, root) => {
-    rootNode.event = rootNode.event ? rootNode.event : []
-    var a = splitString(str)
-    rootNode.event.push(a)
-    currentNode = a
-  }
-}
-var block = {
-  '__attr': (str, root) => {
-    root.attr = root.attr ? root.attr : []
-    var a = splitString(str)
-    root.attr.push(a)
-  },
-  '__function': (str, root) => {
-    root.function = root.function ? root.function : []
-    var a = splitString(str)
-    root.function.push(a)
-    currentNode = a
-  },
-  '__params': (str, root) => {
-    root.params = root.params ? root.params : []
-    var a = splitString(str)
-    root.params.push(a)
-  },
-  '__return': (str, root) => {
-    var a = splitString(str)
-    root.return = a
-  },
-  '__example': (str, root) => {
-    root.example = root.example ? root.example : []
-    root.example.push(str)
-  }
-}
+// var inline = {
+//   '__class': (str, root, node) => {
+//     node.class = splitString(str)
+//     root.node = node
+//   },
+//   '__mixins': (str, root, node) => {
+//     node.mixins = str.split(',')
+//     root.node = node
+//   },
+//   '__extends': (str, root, node) => {
+//     node.extend = str
+//     root.node = node
+//   },
+//   '__components': (str, root, node) => {
+//     node.components = str.split(',')
+//     root.node = node
+//   },
+//   '__watch': (str, root, node) => {
+//     node.watch = node.watch ? node.watch : []
+//     var a = splitString(str)
+//     node.watch.push(a)
+//     root.node = a
+//   },
+//   '__props': (str, root, node) => {
+//     node.props = node.props ? node.props : []
+//     var a = splitString(str)
+//     node.props.push(a)
+//     root.node = a
+//   },
+//   '__computed': (str, root, node) => {
+//     node.computed = node.computed ? node.computed : []
+//     var a = splitString(str)
+//     node.computed.push(a)
+//     root.node = a
+//   },
+//   '__methods': (str, root, node) => {
+//     node.methods = node.methods ? node.methods : []
+//     var a = splitString(str)
+//     node.methods.push(a)
+//     root.node = a
+//   },
+//   '__event': (str, root, node) => {
+//     node.event = node.event ? node.event : []
+//     var a = splitString(str)
+//     node.event.push(a)
+//     root.node = a
+//   }
+// }
+// var block = {
+//   '__attr': (str, root, node) => {
+//     root.node.attr = root.node.attr ? root.node.attr : []
+//     var a = splitString(str)
+//     root.node.attr.push(a)
+//   },
+//   '__function': (str, root, node) => {
+//     root.node.function = root.node.function ? root.node.function : []
+//     var a = splitString(str)
+//     root.node.function.push(a)
+//     root.node = a
+//   },
+//   '__params': (str, root, node) => {
+//     root.node.params = root.node.params ? root.node.params : []
+//     var a = splitString(str)
+//     root.node.params.push(a)
+//   },
+//   '__return': (str, root, node) => {
+//     var a = splitString(str)
+//     root.node.return = a
+//   },
+//   '__example': (str, root, node) => {
+//     root.node.example = root.node.example ? root.node.example : []
+//     root.node.example.push(str)
+//   }
+// }
+var inline = {...inlineRules(splitString)}
+var block = {...blockRules(splitString)}
+
 module.exports = function(source) {
   const options = loaderUtils.getOptions(this);
   let position = this.resourcePath.lastIndexOf('/')
