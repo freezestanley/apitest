@@ -1,28 +1,28 @@
 module.exports = function (splitString) {
   return {
-      '__attr': (str, root, node) => {
-        root.node.attr = root.node.attr ? root.node.attr : []
+      '__attr': (str, current, root) => {
+        current.node.attr = current.node.attr ? current.node.attr : []
         var a = splitString(str)
-        root.node.attr.push(a)
+        current.node.attr.push(a)
       },
-      '__function': (str, root, node) => {
-        root.node.function = root.node.function ? root.node.function : []
+      '__function': (str, current, root) => {
+        current.node.function = current.node.function ? current.node.function : []
         var a = splitString(str)
-        root.node.function.push(a)
-        root.node = a
+        current.node.function.push(a)
+        current.node = a
       },
-      '__params': (str, root, node) => {
-        root.node.params = root.node.params ? root.node.params : []
+      '__params': (str, current, root) => {
+        current.node.params = current.node.params ? current.node.params : []
         var a = splitString(str)
-        root.node.params.push(a)
+        current.node.params.push(a)
       },
-      '__return': (str, root, node) => {
+      '__return': (str, current, root) => {
         var a = splitString(str)
-        root.node.return = a
+        current.node.return = a
       },
-      '__example': (str, root, node) => {
-        root.node.example = root.node.example ? root.node.example : []
-        root.node.example.push(str)
+      '__example': (str, current, root) => {
+        current.node.example = current.node.example ? current.node.example : []
+        current.node.example.push(str)
       }
     }
 }
