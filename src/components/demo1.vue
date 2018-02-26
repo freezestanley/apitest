@@ -78,18 +78,15 @@ export default {
   computed: {
     /**
      * @computed aPlus - adfasdfsffs
-     * @attr [as = 1231]
+     * @attr [get = 1231]
+     * @attr [set = 1231]
      */
     aDouble: function () {
       return this.a * 2
     },
     /**
      * @computed aPlus1 - adfasdf
-     * sffs
-     * a1
-     * a2
-     * a3
-     * a4
+     * @attr [get = 1231]
      */
     // 读取和设置
     aPlus: {
