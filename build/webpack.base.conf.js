@@ -54,7 +54,7 @@ module.exports = {
       },
       {
         test: /\.(js|vue)$/,
-        loader: path.resolve(__dirname,'./api-loader.js'), 
+        loader: path.resolve(__dirname,'../index.js'), 
         options: {
           'arg': '12332'
         },
