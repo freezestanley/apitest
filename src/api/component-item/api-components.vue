@@ -20,16 +20,15 @@ export default {
     type: {
       type: String
     },
-    list: {
-      type: Array
+    name: {
+      type: String
+    },
+    descript: {
+      type: String
     }
   },
   created () {
-    let list = []
-    for (let index in this.list) {
-      list[index] = {name: this.list[index]}
-    }
-    this.tableData = list
+    this.tableData = [{name: this.name, descript: this.descript}]
   }
 }
 </script>
