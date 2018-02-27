@@ -3,7 +3,7 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
-// const apiConfig = require('./api.conf')
+const apiConfig = require('./api-loader.conf.js')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -55,9 +55,7 @@ module.exports = {
       {
         test: /\.(js|vue)$/,
         loader: 'apiloader', 
-        options: {
-          'arg': '12332'
-        },
+        options: apiConfig,
         include: [resolve('src')]
       },
       {
