@@ -44,12 +44,6 @@ export default {
     this.getData(path)
   },
   methods: {
-<<<<<<< HEAD
-    getData (name) {
-      this.axios.get(`/json/src/components/${name}.json`).then((response) => {
-        // this.item = response.data
-        this.item = demo1
-=======
     getNavData () {
       this.axios.get(`/json/index.json`).then((response) => {
         let data = [response.data]
@@ -61,7 +55,6 @@ export default {
     getData (path) {
       this.axios.get(path).then((response) => {
         this.item = response.data
->>>>>>> origin/lisanmei
       })
     }
   },

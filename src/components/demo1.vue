@@ -5,8 +5,6 @@
 
 <script>
 /**
- * @note note - this is note
- * @code asdf - this is code
  * @function test - this is test function
  * @params {string} [a = A] - test params a
  * @params {string} [b = B] - test params b
