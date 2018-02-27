@@ -1,9 +1,5 @@
 <template>
   <div class="api-nav">
-    <!--<p class="nav-header">Components</p>-->
-    <!--<ul>-->
-      <!--<li v-for="(val, key) of componentsList" :key="key"><router-link :to="{name: $route.name, query: {path: val.path}}" :class="{'selected': val.path === $route.query.path}">{{val.name}}</router-link></li>-->
-    <!--</ul>-->
     <api-nav-item :treeData="treeData"></api-nav-item>
   </div>
 </template>
@@ -23,7 +19,7 @@ export default {
 }
 </script>
 
-<style lang='scss' rel="stylesheet/scss">
+<style lang='scss' scoped>
   .api-nav {
     padding-top: 20px;
     width: 400px;

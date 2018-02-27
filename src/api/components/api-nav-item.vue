@@ -36,7 +36,7 @@ export default {
 }
 </script>
 
-<style lang='scss' rel="stylesheet/scss" scoped>
+<style lang='scss' scoped>
   .nav-list {
     li {
       padding: 7px 20px;

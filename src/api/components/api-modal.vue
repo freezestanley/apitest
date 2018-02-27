@@ -54,7 +54,7 @@ export default {
 }
 </script>
 
-<style lang='scss' rel="stylesheet/scss">
+<style lang='scss' scoped>
   .api-modal {
     position: fixed;
     width: 100%;
