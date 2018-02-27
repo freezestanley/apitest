@@ -27,7 +27,6 @@
 </template>
 
 <script>
-// import apiTemplate from './api-template'
 export default {
   name: 'api-table',
   data () {
@@ -73,7 +72,7 @@ export default {
 }
 </script>
 
-<style lang='scss' rel="stylesheet/scss">
+<style lang='scss' scoped>
   .api-table {
     & > .title {
       padding: 20px 0;

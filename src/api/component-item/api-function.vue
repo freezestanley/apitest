@@ -70,12 +70,11 @@ export default {
           levelName: val.levelName
         }
       }
+      // TODO 优化util
       allFunctions = util.transferList(list)
-      // allFunctions = list
     },
     viewDetails (item) {
       this.details = [item]
-      console.log('item', item)
       this.showModal = true
     },
     hideModal () {

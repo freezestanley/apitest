@@ -57,14 +57,6 @@ export default {
       idx += 1
     }
     return h('ul', {class: 'api-template'}, children)
-    // let children = items.map((ele, index, array) => {
-    //   if (!ele.hideComp) {
-    //     ele.idx = index
-    //     return h('li', {}, [h(checkComponent(ele.type), {props: ele, on: ele.on})])
-    //   }
-    // })
-
-    // return h('ul', {class: 'axa-form'}, children)
   },
   props: {
     item: {
@@ -73,6 +65,8 @@ export default {
   }
 }
 </script>
-<style lang='scss' rel="stylesheet/scss">
-  @import '~@/assets/scss/_reset';
+<style lang='scss' scoped>
+  .api-template {
+    flex: 1
+  }
 </style>
