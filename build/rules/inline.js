@@ -1,54 +1,50 @@
 module.exports = function (splitString) {
   return {
-    '__class': (str, current, root) => {
-      console.log('str =' + str)
-      root.class = splitString(str)
-      current.node = root
+    '__class': (str, root, node) => {
+      node.class = splitString(str)
+      root.node = node
     },
-    '__mixins': (str, current, root) => {
-      // root.mixins = str.split(',')
-      root.mixins = splitString(str)
-      current.node = root
+    '__mixins': (str, root, node) => {
+      node.mixins = str.split(',')
+      root.node = node
     },
-    '__extends': (str, current, root) => {
-      // root.extend = str
-      root.extend = splitString(str)
-      current.node = root
+    '__extends': (str, root, node) => {
+      node.extend = str
+      root.node = node
     },
-    '__components': (str, current, root) => {
-      // root.components = str.split(',')
-      root.extend = splitString(str)
-      current.node = root
+    '__components': (str, root, node) => {
+      node.components = str.split(',')
+      root.node = node
     },
-    '__watch': (str, current, root) => {
-      root.watch = root.watch ? root.watch : []
+    '__watch': (str, root, node) => {
+      node.watch = node.watch ? node.watch : []
       var a = splitString(str)
-      root.watch.push(a)
-      current.node = a
+      node.watch.push(a)
+      root.node = a
     },
-    '__props': (str, current, root) => {
-      root.props = root.props ? root.props : []
+    '__props': (str, root, node) => {
+      node.props = node.props ? node.props : []
       var a = splitString(str)
-      root.props.push(a)
-      current.node = a
+      node.props.push(a)
+      root.node = a
     },
-    '__computed': (str, current, root) => {
-      root.computed = root.computed ? root.computed : []
+    '__computed': (str, root, node) => {
+      node.computed = node.computed ? node.computed : []
       var a = splitString(str)
-      root.computed.push(a)
-      current.node = a
+      node.computed.push(a)
+      root.node = a
     },
-    '__methods': (str, current, root) => {
-      root.methods = root.methods ? root.methods : []
+    '__methods': (str, root, node) => {
+      node.methods = node.methods ? node.methods : []
       var a = splitString(str)
-      root.methods.push(a)
-      current.node = a
+      node.methods.push(a)
+      root.node = a
     },
-    '__event': (str, current, root) => {
-      root.event = root.event ? root.event : []
+    '__event': (str, root, node) => {
+      node.event = node.event ? node.event : []
       var a = splitString(str)
-      root.event.push(a)
-      current.node = a
+      node.event.push(a)
+      root.node = a
     }
   }
 }
