@@ -1,9 +1,11 @@
 {
-  "name": "demo1",
-  "version": "1.0.0",
-  "description": "A Vue.js project",
-  "author": "Administractor <admin@example.com>",
-  "private": true,
+  "name": "goblin",
+  "version": "1.0.2",
+  "description": "api-loader",
+  "author": "Administractor <414716114@qq.com>",
+  "bin": {
+    "hi": "./bin/hi.js"
+  },
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
@@ -14,10 +16,13 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "vue": "^2.5.2",
+    "vue-axios": "^2.0.2",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
+    "apiloader": "^1.0.7",
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
     "babel-eslint": "^8.2.1",
@@ -36,7 +41,7 @@
     "chromedriver": "^2.35.0",
     "copy-webpack-plugin": "^4.0.1",
     "cross-spawn": "^5.0.1",
-    "css-loader": "^0.28.0",
+    "css-loader": "^0.28.9",
     "eslint": "^4.15.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-friendly-formatter": "^3.0.0",
@@ -55,6 +60,7 @@
     "jest-serializer-vue": "^0.3.0",
     "nightwatch": "^0.9.12",
     "node-notifier": "^5.1.2",
+    "node-sass": "^4.7.2",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^1.2.0",
     "portfinder": "^1.0.13",
@@ -62,6 +68,8 @@
     "postcss-loader": "^2.0.8",
     "postcss-url": "^7.2.1",
     "rimraf": "^2.6.0",
+    "sass-loader": "^6.0.6",
+    "sass-resources-loader": "^1.3.2",
     "selenium-server": "^3.0.1",
     "semver": "^5.3.0",
     "shelljs": "^0.7.6",
@@ -84,5 +92,19 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "main": "index.js",
+  "directories": {
+    "doc": "doc",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freezestanley/apitest.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/freezestanley/apitest/issues"
+  },
+  "homepage": "https://github.com/freezestanley/apitest#readme"
 }

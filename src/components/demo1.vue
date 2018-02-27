@@ -5,38 +5,41 @@
 
 <script>
 /**
- * @function test - descript
- * @params {string} a - descript
- * @return {Number} [default = 123123] - descript
+ * @function test - this is test function
+ * @params {string} [a = A] - test params a
+ * @params {string} [b = B] - test params b
+ * @return {Number} [default = 111111] - test function return
  */
-function test (a = 'adfas', b = '123123') {
+function test (a = 'A', b = 'B') {
   /**
    * @function test1 - descript
-   * @params {string} a1 - descript
    * @return {Number} [default = 123123] - descript
    */
-  return 123123
+  function test1 () {
+    return 123123
+  }
+  return test1()
 }
 test()
+
 /**
- * @class asdfasdfafsf - class 描述
- * @mixins asdfaf, asdf
- * @extends asdfasd
+ * @class test-component - test-component descript
+ * @mixins mixin - mixin object
+ * @extends extend - extends
  */
 export default {
   name: 'test-component',
   mixins: [],
   /**
-   * @components childComponent, fatherComponent
+   * @components componentsTest1, componentsTest2 - this is components
    */
   components: {
-    // ChildComponent, fatherComponent
   },
   watch: {
     /**
      * @watch prA - 描述applicant
-     * @attr [deep = true]
-     * @attr [immediate = true]
+     * @attr [deep = true] - watch deep
+     * @attr [immediate = true] - watch immediate
      */
     'prA': {
       deep: true,
@@ -45,31 +48,43 @@ export default {
     },
     /**
      * @watch prB - 描述applicant
-     * @attr [deep = true]
-     * @attr [immediate = true]
      */
     'prB': function (newValue, oldvalue) {
     }
   },
   props: {
     /**
-     * @props propA - asdfadfadf
-     * @params {String|Number} [propA = 123]
-     * @attr [required = true]
-     * @attr [validator = asfddaf]
+     * @props {Number} propA - this is propA type Number
+     * @attr [required = true] - this is propA required
+     * @attr [validator = asfddaf] - this is propA validator
      */
     propA: Number,
+    /**
+     * @props {String|Number} propB - this is propB type String, Number
+     */
     propB: [String, Number],
+    /**
+     * @props {String} propC - this is propC type String
+     * @attr [required = true] - this is propC attr required
+     */
     propC: {
       type: String,
       required: true
     },
+    /**
+     * @props {Object} propD - this is propD type Object
+     * @attr [default = hello] - this propD default hello
+     */
     propD: {
       type: Object,
       default: function () {
         return { message: 'hello' }
       }
     },
+    /**
+     * @props {Object} propE - this is propE type Object
+     * @attr [validator = 大于10]
+     */
     propE: {
       validator: function (value) {
         return value > 10
@@ -78,19 +93,15 @@ export default {
   },
   computed: {
     /**
-     * @computed aPlus - adfasdfsffs
-     * @attr [as = 1231]
+     * @computed aPlus - computed aDouble
      */
     aDouble: function () {
       return this.a * 2
     },
     /**
-     * @computed aPlus1 - adfasdf
-     * sffs
-     * a1
-     * a2
-     * a3
-     * a4
+     * @computed aPlus - computed aPlus
+     * @attr [get = 1231] - this is computed aPlus get
+     * @attr set - this is computed aPlus set
      */
     // 读取和设置
     aPlus: {
@@ -104,28 +115,30 @@ export default {
   },
   methods: {
     /**
-     * @methods doit - descript
-     * @params {String|Number} [a = 10] - descript
+     * @methods doit - function doit
+     * @params {String|Number} [a = 10] - doit one params
      * @return {Number} - descript
      */
     doit (a = 10) {
       /**
-       * @event name - descript
+       * @event onEvent - onEvent 事件
+       * @params {String|Number} param - onEvent入参
        */
-      this.$emit('on', 'asdfsf')
+      this.$emit('onEvent', 'onEventParam')
       return 'asf'
     },
     /**
-     * @methods doit1 - descript
-     * @params {String|Number} [a = 10] - descript
-     * @return {Number} - descript
+     * @methods doit1 - doit1 function
+     * @params {String|Number} [a = 10] - doit1 入参
+     * @return {Number} - doit1 return
      */
     doit1 (a = 10) {
       /**
-       * @event name - descript
+       * @event onEvent1 - onEvent1 事件
+       * @params {String} onEvent1Param - doit1 入参
        */
-      this.$emit('on', 'asdfsf')
-      return 'asf'
+      this.$emit('onEvent1', 'onEvent1Param')
+      return 121323
     }
   }
 }

@@ -1,0 +1,115 @@
+<template>
+  <div class="api-table">
+    <p class="title">{{title}}</p>
+    <table>
+      <thead>
+        <tr>
+          <th v-for="(val, index) of tableHead" :key="index">{{val}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(val, index) of tableData" :key="index">
+          <td v-for="(key, _index) of tableHead" :key="_index">
+            <div class="params-list" v-if="Object.prototype.toString.call(val[key]) === '[object Array]'" >
+              <a v-for="(item, _key) in val[key]" :key="_key" @click="viewDetails(item)">{{item.name}}</a>
+            </div>
+            <ul class="obj-info" v-else-if="Object.prototype.toString.call(val[key]) === '[object Object]'" >
+              <li v-for="(value, _key) in val[key]" :key="_key"><span>{{_key}}:</span> {{value}}</li>
+            </ul>
+            <span v-else>
+              {{val[key]}}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</template>
+
+<script>
+// import apiTemplate from './api-template'
+export default {
+  name: 'api-table',
+  data () {
+    return {
+      tableHead: []
+    }
+  },
+  props: {
+    title: {
+      type: String
+    },
+    tableData: {
+      type: Array
+    }
+  },
+  created () {
+    this.changeTitle()
+  },
+  watch: {
+    tableData () {
+      this.changeTitle()
+    }
+  },
+  methods: {
+    viewDetails (item) {
+      this.$emit('viewDetails', item)
+    },
+    changeTitle () {
+      let tableHead = []
+      for (let val of this.tableData) {
+        tableHead = Array.from(new Set([...tableHead, ...Object.keys(val)]))
+      }
+      for (let index in tableHead) {
+        if (tableHead[index] === 'descript' && index !== tableHead.length - 1) {
+          let val = tableHead.splice(index, 1)
+          tableHead.push(val[0])
+          break
+        }
+      }
+      this.tableHead = tableHead
+    }
+  }
+}
+</script>
+
+<style lang='scss' rel="stylesheet/scss">
+  .api-table {
+    & > .title {
+      padding: 20px 0;
+      font-size: 25px;
+      color: #33ab70;
+    }
+    table {
+      display: block;
+      width: 100%;
+      tr {
+        border-top: 1px solid #ccc;
+      }
+      th, td {
+        padding: 6px 13px;
+        border: 1px solid #ddd;
+        vertical-align: middle;
+      }
+      th {
+        font-weight: bold;
+        text-align: center;
+      }
+    }
+    .params-list a {
+      margin-right: 10px;
+      color: #00c;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .obj-info {
+      list-style: none;
+      li {
+        padding-bottom: 5px;
+        & > span {
+          color: #d95353;
+        }
+      }
+    }
+  }
+</style>
