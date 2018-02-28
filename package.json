@@ -4,7 +4,7 @@
   "description": "api - json => vue",
   "main": "index.js",
   "bin": {
-    "goblin": "./bin/index.js"
+    "apiripper": "./bin/index.js"
   },
   "dependencies": {
     "axios": "^0.17.1",

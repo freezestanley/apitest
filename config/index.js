@@ -4,6 +4,11 @@
 
 const path = require('path')
 
+// console.log(process.env.API_DOC)
+// console.log('==============' + process.env.API_OUTPUT)
+// console.log(process.env.API_PATH)
+// console.log(path.join(process.env.API_PATH, '/doc/page'))
+
 module.exports = {
   dev: {
 
@@ -45,10 +50,14 @@ module.exports = {
 
   build: {
     // Template for index.html
-    index: path.resolve(__dirname, '../dist/index.html'),
+    // index: path.resolve(__dirname, '../dist/index.html'),
 
     // Paths
-    assetsRoot: path.resolve(__dirname, '../dist'),
+    // assetsRoot: path.resolve(__dirname, '../dist'),
+    // index: '/Users/stanleyxu/Desktop/vsiren/dome1/apiloadertest/myproject/doc/page/index.html',
+    // assetsRoot: '/Users/stanleyxu/Desktop/vsiren/dome1/apiloadertest/myproject/doc/page',
+    index: path.join(process.env.API_PATH, process.env.API_OUTPUT, 'index.html'),
+    assetsRoot: path.join(process.env.API_PATH, process.env.API_OUTPUT),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
 
