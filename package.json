@@ -1,6 +1,6 @@
 {
   "name": "api-ripper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "api - json => vue",
   "main": "index.js",
   "bin": {
