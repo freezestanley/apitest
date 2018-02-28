@@ -1,19 +1,10 @@
 {
-  "name": "goblin",
-  "version": "1.0.2",
-  "description": "api-loader",
-  "author": "Administractor <414716114@qq.com>",
+  "name": "api-ripper",
+  "version": "1.0.0",
+  "description": "api - json => vue",
+  "main": "index.js",
   "bin": {
-    "goblin": "./bin/hi.js"
-  },
-  "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "start": "npm run dev",
-    "unit": "jest --config test/unit/jest.conf.js --coverage",
-    "e2e": "node test/e2e/runner.js",
-    "test": "npm run unit && npm run e2e",
-    "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
-    "build": "node build/build.js"
+    "goblin": "./bin/index.js"
   },
   "dependencies": {
     "axios": "^0.17.1",
@@ -85,6 +76,19 @@
     "webpack-dev-server": "^2.9.1",
     "webpack-merge": "^4.1.0"
   },
+  "scripts": {
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "start": "npm run dev",
+    "unit": "jest --config test/unit/jest.conf.js --coverage",
+    "e2e": "node test/e2e/runner.js",
+    "test": "npm run unit && npm run e2e",
+    "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
+    "build": "node build/build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freezestanley/apitest.git"
+  },
   "engines": {
     "node": ">= 6.0.0",
     "npm": ">= 3.0.0"
@@ -94,15 +98,7 @@
     "last 2 versions",
     "not ie <= 8"
   ],
-  "main": "index.js",
-  "directories": {
-    "doc": "doc",
-    "test": "test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/freezestanley/apitest.git"
-  },
+  "author": "Administractor <414716114@qq.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/freezestanley/apitest/issues"
