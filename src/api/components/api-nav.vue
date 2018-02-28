@@ -5,12 +5,8 @@
 </template>
 
 <script>
-import apiNavItem from './api-nav-item'
 export default {
   name: 'api-nav',
-  components: {
-    apiNavItem
-  },
   props: {
     treeData: {
       type: Array

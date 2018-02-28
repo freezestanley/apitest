@@ -8,8 +8,6 @@
 </template>
 
 <script>
-import apiTable from '../components/api-table'
-import apiModal from '../components/api-modal'
 import util from '../utils/index'
 let allFunctions
 let transformData = (list, parentLevel, parentLevelName) => {
@@ -30,10 +28,6 @@ let transformData = (list, parentLevel, parentLevelName) => {
 }
 export default {
   name: 'api-function',
-  components: {
-    apiTable,
-    apiModal
-  },
   data () {
     return {
       tableData: [],
@@ -83,6 +77,3 @@ export default {
   }
 }
 </script>
-
-<style lang='scss' rel="stylesheet/scss">
-</style>
