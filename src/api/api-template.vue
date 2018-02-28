@@ -1,14 +1,5 @@
 <script>
-import apiClass from './component-item/api-class'
-import apiComponents from './component-item/api-components'
-import apiComputed from './component-item/api-computed'
-import apiEvent from './component-item/api-event'
-import apiExtend from './component-item/api-extend'
-import apiFunction from './component-item/api-function'
-import apiMethods from './component-item/api-methods'
-import apiMixins from './component-item/api-mixins'
-import apiProps from './component-item/api-props'
-import apiWatch from './component-item/api-watch'
+import apiComponent from './api-component.conf.js'
 
 export default {
   functional: true,
@@ -16,26 +7,9 @@ export default {
   render: function (h, ctx) {
     let items = ctx.props.item
     function checkComponent (n) {
-      if (n === 'class') {
-        return apiClass
-      } else if (n === 'components') {
-        return apiComponents
-      } else if (n === 'computed') {
-        return apiComputed
-      } else if (n === 'event') {
-        return apiEvent
-      } else if (n === 'extend') {
-        return apiExtend
-      } else if (n === 'function') {
-        return apiFunction
-      } else if (n === 'methods') {
-        return apiMethods
-      } else if (n === 'mixins') {
-        return apiMixins
-      } else if (n === 'props') {
-        return apiProps
-      } else if (n === 'watch') {
-        return apiWatch
+      let path = apiComponent['api-' + n]
+      if (path) {
+        return require('.' + path).default
       }
     }
     let idx = 0
@@ -65,8 +39,7 @@ export default {
   }
 }
 </script>
-<style lang='scss' scoped>
-  .api-template {
-    flex: 1
-  }
+<style lang='scss' rel="stylesheet/scss" scoped>
+  @import '~@/assets/scss/_reset';
+
 </style>
