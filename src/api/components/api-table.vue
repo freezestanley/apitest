@@ -59,13 +59,9 @@ export default {
       for (let val of this.tableData) {
         tableHead = Array.from(new Set([...tableHead, ...Object.keys(val)]))
       }
-      for (let index in tableHead) {
-        if (tableHead[index] === 'descript' && index !== tableHead.length - 1) {
-          let val = tableHead.splice(index, 1)
-          tableHead.push(val[0])
-          break
-        }
-      }
+      tableHead.sort((a, b) => {
+        return a === 'descript' || b === 'name'
+      })
       this.tableHead = tableHead
     }
   }
@@ -80,8 +76,8 @@ export default {
       color: #33ab70;
     }
     table {
-      display: block;
-      width: 100%;
+      /*display: block;*/
+      /*width: 100%;*/
       tr {
         border-top: 1px solid #ccc;
       }

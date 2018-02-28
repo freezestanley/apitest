@@ -6,6 +6,7 @@
 </template>
 
 <script>
+let indexDir = 'json/index.json'
 export default {
   name: 'index',
   data () {
@@ -18,13 +19,16 @@ export default {
   created () {
     let path = this.$route.query.path
     this.getNavData()
-    this.getData(path)
+    if (path) {
+      this.getData(path)
+    }
   },
   methods: {
     parseFiles: function (data) {
       for (let val of data) {
         if (val.type === 'file') {
           val.path = val.path.substring(4, val.path.length)
+          val.name = val.name.substring(0, val.name.length - 5)
         }
         val.open = true
         if (val.children) {
@@ -33,16 +37,24 @@ export default {
       }
     },
     getNavData () {
-      this.axios.get(`/json/index.json`).then((response) => {
-        let data = [response.data]
-        this.parseFiles(data)
-        this.treeData = data
-      })
+      // this.axios.get(`/json/index.json`).then((response) => {
+      //   let data = [response.data]
+      //   this.parseFiles(data)
+      //   this.treeData = data
+      // })
+      let data = [require('../../doc/' + indexDir)]
+      this.parseFiles(data)
+      this.treeData = data
     },
     getData (path) {
-      this.axios.get(path).then((response) => {
-        this.item = response.data
-      })
+      // this.axios.get(path).then((response) => {
+      //   this.item = response.data
+      // })
+      if (path === indexDir) {
+        this.item = {}
+        return
+      }
+      this.item = require('../../doc/' + path)
     }
   },
   beforeRouteUpdate (to, from, next) {
@@ -57,8 +69,9 @@ export default {
 <style lang='scss'>
   @import '~@/assets/scss/_reset';
   .api-index {
-    display: flex;
-    padding: 0 0 60px;
+    position: relative;
+    /*display: flex;*/
+    padding: 0 0 60px 370px;
     box-sizing: border-box;
   }
 </style>
