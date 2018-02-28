@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   'api-class': '/component-item/api-class',
   'api-components': '/component-item/api-components',
   'api-computed': '/component-item/api-computed',
