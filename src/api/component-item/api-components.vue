@@ -5,12 +5,8 @@
 </template>
 
 <script>
-import apiTable from '../components/api-table'
 export default {
   name: 'api-components',
-  components: {
-    apiTable
-  },
   data () {
     return {
       tableData: []
@@ -32,6 +28,3 @@ export default {
   }
 }
 </script>
-
-<style lang='scss' rel="stylesheet/scss">
-</style>

@@ -60,10 +60,10 @@ export default {
       background-size: contain;
       vertical-align: middle;
       &.expand {
-        background-image: url(../images/expand.png)
+        background-image: url(~@/assets/images/expand.png)
       }
       &.collapse {
-        background-image: url(../images/collapse.png)
+        background-image: url(~@/assets/images/collapse.png)
       }
     }
   }

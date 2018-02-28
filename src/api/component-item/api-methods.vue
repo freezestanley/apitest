@@ -8,15 +8,9 @@
 </template>
 
 <script>
-import apiTable from '../components/api-table'
-import apiModal from '../components/api-modal'
 import util from '../utils/index'
 export default {
   name: 'api-methods',
-  components: {
-    apiTable,
-    apiModal
-  },
   data () {
     return {
       tableData: [],
@@ -46,6 +40,3 @@ export default {
   }
 }
 </script>
-
-<style lang='scss' rel="stylesheet/scss">
-</style>

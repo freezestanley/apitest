@@ -6,14 +6,8 @@
 </template>
 
 <script>
-import apiTemplate from './api-template'
-import apiNav from './components/api-nav'
 export default {
   name: 'index',
-  components: {
-    apiTemplate,
-    apiNav
-  },
   data () {
     return {
       item: {},
