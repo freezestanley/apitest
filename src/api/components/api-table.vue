@@ -82,7 +82,8 @@ export default {
         border-top: 1px solid #ccc;
       }
       th, td {
-        padding: 6px 13px;
+        padding: 8px 13px;
+        max-width: 320px;
         border: 1px solid #ddd;
         vertical-align: middle;
       }
