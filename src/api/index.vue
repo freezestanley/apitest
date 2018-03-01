@@ -27,9 +27,9 @@ export default {
   methods: {
     parseFiles: function (data, parentLevel) {
       for (let val of data) {
-        val.path = val.path.substring(4, val.path.length)
+        val.path = val.path.replace('doc\\', '')
         if (val.type === 'file') {
-          val.name = val.name.substring(0, val.name.length - 5)
+          val.name = val.name.replace('.json', '')
         }
         if (parentLevel === undefined) {
           val.level = 0
@@ -86,7 +86,7 @@ export default {
   .api-index {
     position: relative;
     /*display: flex;*/
-    padding: 0 0 60px 370px;
+    padding: 0 0 60px 390px;
     box-sizing: border-box;
   }
 </style>
