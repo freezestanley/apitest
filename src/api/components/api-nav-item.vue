@@ -50,6 +50,7 @@ export default {
     }
     a {
       text-decoration: none;
+      transition: color .3s;
       &.selected, &:hover {
         color: #42b983;
       }

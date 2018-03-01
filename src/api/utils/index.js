@@ -28,6 +28,20 @@ let transferList = (list) => {
   }
   return list
 }
+
+let sort = (data) => {
+  if (Object.prototype.toString.call(data) === '[object Array]') {
+    data.sort((a, b) => {
+      return a === 'descript' || b === 'name'
+    })
+  } else if (Object.prototype.toString.call(data) === '[object Object]') {
+    let descript = data.descript
+    if (descript) {
+      delete data.descript
+      data.descript = descript
+    }
+  }
+}
 export default {
-  transferAttr, transferList
+  transferAttr, transferList, sort
 }

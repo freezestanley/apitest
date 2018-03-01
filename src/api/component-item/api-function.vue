@@ -22,6 +22,11 @@ let transformData = (list, parentLevel, parentLevelName) => {
       val.level = parentLevel + 1
       val.levelName = `${parentLevelName} > ${val.name}`
     }
+    if (val.return && val.return.defVal) {
+      val.return.default = val.return.defVal.default
+      delete val.return.defVal
+      util.sort(val.return)
+    }
     allFunctions.push(val)
     transformData(val.function, val.level, val.levelName)
   }
