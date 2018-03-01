@@ -98,12 +98,11 @@ export default {
       cursor: pointer;
     }
     .obj-info {
+      padding: 3px 0;
       list-style: none;
-      li {
-        padding-bottom: 5px;
-        & > span {
-          color: #d95353;
-        }
+      line-height: 24px;
+      li > span {
+        color: #d95353;
       }
     }
   }
