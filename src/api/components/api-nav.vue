@@ -17,7 +17,13 @@ export default {
 
 <style lang='scss' scoped>
   .api-nav {
-    padding-top: 20px;
-    width: 400px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    padding: 20px 0;
+    width: 350px;
+    overflow-y: auto;
+    border-right: 1px solid rgba(0,0,0,.07);
   }
 </style>

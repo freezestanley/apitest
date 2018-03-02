@@ -16,15 +16,12 @@ export default {
     type: {
       type: String
     },
-    name: {
-      type: String
-    },
-    descript: {
-      type: String
+    list: {
+      type: Array
     }
   },
   created () {
-    this.tableData = [{name: this.name, descript: this.descript}]
+    this.tableData = this.list
   }
 }
 </script>

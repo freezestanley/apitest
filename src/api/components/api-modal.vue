@@ -77,7 +77,7 @@ export default {
       & > .modal-body {
         position: relative;
         margin: 0 auto;
-        padding: 30px 20px;
+        padding: 40px 20px;
         min-width: 600px;
         background: #fff;
       }
@@ -88,6 +88,10 @@ export default {
         font-size: 30px;
         cursor: pointer
       }
+    }
+    .api-table {
+      display: flex;
+      justify-content: center;
     }
   }
 </style>

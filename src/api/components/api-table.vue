@@ -11,7 +11,7 @@
         <tr v-for="(val, index) of tableData" :key="index">
           <td v-for="(key, _index) of tableHead" :key="_index">
             <div class="params-list" v-if="Object.prototype.toString.call(val[key]) === '[object Array]'" >
-              <a v-for="(item, _key) in val[key]" :key="_key" @click="viewDetails(item)">{{item.name}}</a>
+              <a v-for="(item, _key) in val[key]" :key="_key" @mouseenter="show(item)" @mouseleave="hide()">{{item.name}}</a>
             </div>
             <ul class="obj-info" v-else-if="Object.prototype.toString.call(val[key]) === '[object Object]'" >
               <li v-for="(value, _key) in val[key]" :key="_key"><span>{{_key}}:</span> {{value}}</li>
@@ -51,21 +51,20 @@ export default {
     }
   },
   methods: {
-    viewDetails (item) {
-      this.$emit('viewDetails', item)
+    show (item) {
+      this.$emit('show', item)
+    },
+    hide () {
+      this.$emit('hide')
     },
     changeTitle () {
       let tableHead = []
       for (let val of this.tableData) {
         tableHead = Array.from(new Set([...tableHead, ...Object.keys(val)]))
       }
-      for (let index in tableHead) {
-        if (tableHead[index] === 'descript' && index !== tableHead.length - 1) {
-          let val = tableHead.splice(index, 1)
-          tableHead.push(val[0])
-          break
-        }
-      }
+      tableHead.sort((a, b) => {
+        return a === 'descript' || b === 'name'
+      })
       this.tableHead = tableHead
     }
   }
@@ -80,13 +79,14 @@ export default {
       color: #33ab70;
     }
     table {
-      display: block;
-      width: 100%;
+      /*display: block;*/
+      /*width: 100%;*/
       tr {
         border-top: 1px solid #ccc;
       }
       th, td {
-        padding: 6px 13px;
+        padding: 8px 13px;
+        max-width: 320px;
         border: 1px solid #ddd;
         vertical-align: middle;
       }
@@ -102,12 +102,11 @@ export default {
       cursor: pointer;
     }
     .obj-info {
+      padding: 3px 0;
       list-style: none;
-      li {
-        padding-bottom: 5px;
-        & > span {
-          color: #d95353;
-        }
+      line-height: 24px;
+      li > span {
+        color: #d95353;
       }
     }
   }

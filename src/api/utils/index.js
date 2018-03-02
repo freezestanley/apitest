@@ -1,3 +1,17 @@
+let sort = (data) => {
+  if (Object.prototype.toString.call(data) === '[object Array]') {
+    data.sort((a, b) => {
+      return a === 'descript' || b === 'name'
+    })
+  } else if (Object.prototype.toString.call(data) === '[object Object]') {
+    let descript = data.descript
+    if (descript) {
+      delete data.descript
+      data.descript = descript
+    }
+  }
+}
+
 // 将defVal转换为对象
 let transferAttr = (list) => {
   for (let i in list) {
@@ -12,6 +26,7 @@ let transferAttr = (list) => {
         list[i] = { name: key, descript: val[key] }
       }
     }
+    sort(list[i])
   }
   return list
 }
@@ -28,6 +43,7 @@ let transferList = (list) => {
   }
   return list
 }
+
 export default {
-  transferAttr, transferList
+  transferAttr, transferList, sort
 }

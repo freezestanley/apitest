@@ -10,6 +10,7 @@ export default {
   'api-props': '/component-item/api-props',
   'api-watch': '/component-item/api-watch',
   'api-modal': '/components/api-modal',
+  'api-popover': '/components/api-popover',
   'api-nav': '/components/api-nav',
   'api-nav-item': '/components/api-nav-item',
   'api-table': '/components/api-table',

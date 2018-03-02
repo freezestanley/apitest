@@ -1,9 +1,6 @@
 <template>
   <div>
-    <api-table :title="type" :tableData="tableData" @viewDetails="viewDetails"></api-table>
-    <api-modal :visible="showModal" @hide="hideModal">
-      <api-table :title="details.name" :tableData="details"></api-table>
-    </api-modal>
+    <api-table :title="type" :tableData="tableData" @show="show" @hide="hide"></api-table>
   </div>
 </template>
 
@@ -22,6 +19,11 @@ let transformData = (list, parentLevel, parentLevelName) => {
       val.level = parentLevel + 1
       val.levelName = `${parentLevelName} > ${val.name}`
     }
+    if (val.return && val.return.defVal) {
+      val.return.default = val.return.defVal.default
+      delete val.return.defVal
+      util.sort(val.return)
+    }
     allFunctions.push(val)
     transformData(val.function, val.level, val.levelName)
   }
@@ -30,9 +32,7 @@ export default {
   name: 'api-function',
   data () {
     return {
-      tableData: [],
-      showModal: false,
-      details: []
+      tableData: []
     }
   },
   props: {
@@ -64,15 +64,13 @@ export default {
           levelName: val.levelName
         }
       }
-      // TODO 优化util
       allFunctions = util.transferList(list)
     },
-    viewDetails (item) {
-      this.details = [item]
-      this.showModal = true
+    show (item) {
+      this.$emit('show', item)
     },
-    hideModal () {
-      this.showModal = false
+    hide () {
+      this.$emit('hide')
     }
   }
 }

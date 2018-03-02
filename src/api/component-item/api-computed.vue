@@ -1,9 +1,6 @@
 <template>
   <div>
-    <api-table :title="type" :tableData="tableData" @viewDetails="viewDetails"></api-table>
-    <api-modal :visible="showModal" @hide="hideModal">
-      <api-table :title="details.name" :tableData="details"></api-table>
-    </api-modal>
+    <api-table :title="type" :tableData="tableData" @show="show" @hide="hide"></api-table>
   </div>
 </template>
 
@@ -13,9 +10,7 @@ export default {
   name: 'api-computed',
   data () {
     return {
-      tableData: [],
-      showModal: false,
-      details: []
+      tableData: []
     }
   },
   props: {
@@ -30,12 +25,11 @@ export default {
     this.tableData = util.transferList(this.list)
   },
   methods: {
-    viewDetails (item) {
-      this.details = [item]
-      this.showModal = true
+    show: function (item) {
+      this.$emit('show', item)
     },
-    hideModal () {
-      this.showModal = false
+    hide: function () {
+      this.$emit('hide')
     }
   }
 }

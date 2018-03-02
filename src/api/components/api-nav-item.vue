@@ -39,15 +39,18 @@ export default {
 <style lang='scss' scoped>
   .nav-list {
     li {
-      padding: 7px 20px;
+      padding-left: 20px;
       list-style: none;
     }
     .name {
+      display: inline-block;
       padding: 7px 5px;
+      color: #666;
+      vertical-align: middle;
     }
     a {
-      color: #666;
       text-decoration: none;
+      transition: color .3s;
       &.selected, &:hover {
         color: #42b983;
       }

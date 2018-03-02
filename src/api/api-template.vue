@@ -17,17 +17,15 @@ export default {
     for (let i in items) {
       let ele = items[i]
       if (Object.prototype.toString.call(ele) === '[object String]') {
-        ele = {descript: ele}
+        ele = {list: [{descript: ele}]}
       } else if (Object.prototype.toString.call(ele) === '[object Array]') {
         ele = {list: ele}
+      } else if (Object.prototype.toString.call(ele) === '[object Object]') {
+        ele = {list: [ele]}
       }
       ele.idx = idx
       ele.type = i
-      if (!ele.hideComp) {
-        children.push(h('li', {style: {display: 'block'}}, [h(checkComponent(ele.type), {props: ele})]))
-      } else {
-        children.push(h('li', {style: {display: 'none'}}, [h(checkComponent(ele.type), {props: ele})]))
-      }
+      children.push(h('li', [h(checkComponent(ele.type), {props: ele, on: {show: ctx.data.on.show, hide: ctx.data.on.hide}})]))
       idx += 1
     }
     return h('ul', {class: 'api-template'}, children)
@@ -36,10 +34,20 @@ export default {
     item: {
       type: [Object, String]
     }
+  },
+  methods: {
+    show: function (item) {
+      this.$emit('show', item)
+    },
+    hide: function () {
+      this.$emit('hide')
+    }
   }
 }
 </script>
 <style lang='scss' rel="stylesheet/scss" scoped>
   @import '~@/assets/scss/_reset';
-
+  .api-template {
+    list-style: none;
+  }
 </style>
