@@ -1,7 +1,8 @@
 <template>
   <div class="api-index">
     <api-nav :treeData="treeData"></api-nav>
-    <api-template :item="item"></api-template>
+    <api-template :item="item" @show="show" @hide="hide"></api-template>
+    <api-popover :visible="showPopover" :details="details"></api-popover>
   </div>
 </template>
 
@@ -14,7 +15,9 @@ export default {
       item: {},
       componentsList: [],
       treeData: [],
-      path: ''
+      path: '',
+      showPopover: false,
+      details: {}
     }
   },
   created () {
@@ -47,7 +50,7 @@ export default {
         }
       }
     },
-    getNavData () {
+    getNavData: function () {
       // this.axios.get(`/json/index.json`).then((response) => {
       //   let data = [response.data]
       //   this.parseFiles(data)
@@ -58,7 +61,7 @@ export default {
       // console.log('data', data)
       this.treeData = data
     },
-    getData (path) {
+    getData: function (path) {
       // this.axios.get(path).then((response) => {
       //   this.item = response.data
       // })
@@ -66,10 +69,14 @@ export default {
         this.item = {}
         return
       }
-      // for (let val in this.treeData) {
-      //   if (val.p)
-      // }
       this.item = require('../../doc/' + path)
+    },
+    show: function (item) {
+      this.details = item
+      this.showPopover = true
+    },
+    hide: function () {
+      this.showPopover = false
     }
   },
   beforeRouteUpdate (to, from, next) {

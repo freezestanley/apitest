@@ -11,7 +11,7 @@
         <tr v-for="(val, index) of tableData" :key="index">
           <td v-for="(key, _index) of tableHead" :key="_index">
             <div class="params-list" v-if="Object.prototype.toString.call(val[key]) === '[object Array]'" >
-              <a v-for="(item, _key) in val[key]" :key="_key" @click="viewDetails(item)">{{item.name}}</a>
+              <a v-for="(item, _key) in val[key]" :key="_key" @mouseenter="show(item)" @mouseleave="hide()">{{item.name}}</a>
             </div>
             <ul class="obj-info" v-else-if="Object.prototype.toString.call(val[key]) === '[object Object]'" >
               <li v-for="(value, _key) in val[key]" :key="_key"><span>{{_key}}:</span> {{value}}</li>
@@ -51,8 +51,11 @@ export default {
     }
   },
   methods: {
-    viewDetails (item) {
-      this.$emit('viewDetails', item)
+    show (item) {
+      this.$emit('show', item)
+    },
+    hide () {
+      this.$emit('hide')
     },
     changeTitle () {
       let tableHead = []

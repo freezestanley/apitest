@@ -25,7 +25,7 @@ export default {
       }
       ele.idx = idx
       ele.type = i
-      children.push(h('li', [h(checkComponent(ele.type), {props: ele})]))
+      children.push(h('li', [h(checkComponent(ele.type), {props: ele, on: {show: ctx.data.on.show, hide: ctx.data.on.hide}})]))
       idx += 1
     }
     return h('ul', {class: 'api-template'}, children)
@@ -33,6 +33,14 @@ export default {
   props: {
     item: {
       type: [Object, String]
+    }
+  },
+  methods: {
+    show: function (item) {
+      this.$emit('show', item)
+    },
+    hide: function () {
+      this.$emit('hide')
     }
   }
 }
