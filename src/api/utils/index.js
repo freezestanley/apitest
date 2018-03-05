@@ -5,11 +5,20 @@ let sort = (data) => {
     })
   } else if (Object.prototype.toString.call(data) === '[object Object]') {
     let descript = data.descript
+    let name = data.name
     if (descript) {
       delete data.descript
       data.descript = descript
     }
+    if (name) {
+      let _obj = {name: name}
+      for (let key in data) {
+        _obj[key] = data[key]
+      }
+      data = _obj
+    }
   }
+  return data
 }
 
 // 将defVal转换为对象
@@ -26,7 +35,7 @@ let transferAttr = (list) => {
         list[i] = { name: key, descript: val[key] }
       }
     }
-    sort(list[i])
+    list[i] = sort(list[i])
   }
   return list
 }
