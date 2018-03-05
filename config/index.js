@@ -56,8 +56,8 @@ module.exports = {
     // assetsRoot: path.resolve(__dirname, '../dist'),
     // index: '/Users/stanleyxu/Desktop/vsiren/dome1/apiloadertest/myproject/doc/page/index.html',
     // assetsRoot: '/Users/stanleyxu/Desktop/vsiren/dome1/apiloadertest/myproject/doc/page',
-    index: path.join(process.env.API_PATH, process.env.API_OUTPUT, 'index.html'),
-    assetsRoot: path.join(process.env.API_PATH, process.env.API_OUTPUT),
+    index: path.join(process.env.API_PATH || './doc/page', process.env.API_OUTPUT || './doc/page', 'index.html'),
+    assetsRoot: path.join(process.env.API_PATH || './doc/page', process.env.API_OUTPUT || './doc/page'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
 
