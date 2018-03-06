@@ -100,6 +100,9 @@ export default {
       color: #00c;
       text-decoration: underline;
       cursor: pointer;
+      &:hover {
+        color: #d95353;
+      }
     }
     .obj-info {
       padding: 3px 0;
