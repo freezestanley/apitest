@@ -1,5 +1,5 @@
 <template>
-  <div class="api-tooltip" :style="{display: viewShow}">
+  <div class="api-popover" :style="{display: viewShow}">
     <ul>
       <li v-for="(value, key) in details" :key="key"><span>{{key}}:</span> {{value}}</li>
     </ul>
@@ -37,7 +37,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-  .api-tooltip {
+  .api-popover {
     position: fixed;
     top: 100px;
     right: 10px;

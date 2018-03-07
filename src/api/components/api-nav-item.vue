@@ -41,6 +41,9 @@ export default {
     li {
       padding-left: 20px;
       list-style: none;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
     .name {
       display: inline-block;

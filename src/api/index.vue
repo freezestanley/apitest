@@ -13,7 +13,6 @@ export default {
   data () {
     return {
       item: {},
-      componentsList: [],
       treeData: [],
       path: '',
       showPopover: false,
@@ -44,7 +43,7 @@ export default {
         } else if (val.path === this.path || this.path.indexOf(val.path + '/') === 0) {
           val.open = true
         }
-        val.open = val.level < 2 ? true : val.open
+        val.open = val.level < 1 ? true : val.open
         if (val.children) {
           this.parseFiles(val.children, val.level)
         }
@@ -56,7 +55,8 @@ export default {
       //   this.parseFiles(data)
       //   this.treeData = data
       // })
-      let data = [require('../../doc/' + indexDir)]
+      let data = require('../../doc/' + indexDir)
+      data = [data.children[1]]
       this.parseFiles(data)
       // console.log('data', data)
       this.treeData = data
@@ -65,7 +65,7 @@ export default {
       // this.axios.get(path).then((response) => {
       //   this.item = response.data
       // })
-      if (path === indexDir) {
+      if (!path) {
         this.item = {}
         return
       }
@@ -93,7 +93,7 @@ export default {
   .api-index {
     position: relative;
     /*display: flex;*/
-    padding: 0 0 60px 390px;
+    padding: 0 20px 60px 390px;
     box-sizing: border-box;
   }
 </style>
