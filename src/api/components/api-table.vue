@@ -14,8 +14,15 @@
               <a v-for="(item, _key) in val[key]" :key="_key" @mouseenter="show(item)" @mouseleave="hide()">{{item.name}}</a>
             </div>
             <ul class="obj-info" v-else-if="Object.prototype.toString.call(val[key]) === '[object Object]'" >
-              <li v-for="(value, _key) in val[key]" :key="_key"><span>{{_key}}:</span> {{value}}</li>
+              <li v-for="(value, _key) in val[key]" :key="_key">
+                <span>{{_key}}:</span>
+                <api-type v-if="_key === 'type'" :type="value" class="label-text"></api-type>
+                <div v-else class="label-text">
+                  {{value}}
+                </div>
+              </li>
             </ul>
+            <api-type v-else-if="key === 'type'" :type="val[key]"></api-type>
             <span v-else>
               {{val[key]}}
             </span>
@@ -83,10 +90,14 @@ export default {
       /*width: 100%;*/
       tr {
         border-top: 1px solid #ccc;
+        &:nth-child(2n) {
+          background-color: #f8f8f8
+        }
       }
       th, td {
-        padding: 8px 13px;
+        padding: 6px 13px;
         max-width: 320px;
+        line-height: 24px;
         border: 1px solid #ddd;
         vertical-align: middle;
       }
@@ -110,7 +121,11 @@ export default {
       line-height: 24px;
       li > span {
         color: #d95353;
+        vertical-align: top;
       }
+    }
+    .label-text {
+      display: inline-block;
     }
   }
 </style>
