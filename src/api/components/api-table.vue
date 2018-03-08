@@ -108,11 +108,12 @@ export default {
     }
     .params-list a {
       margin-right: 10px;
-      color: #00c;
-      text-decoration: underline;
+      color: #4078c0;
+      /*text-decoration: underline;*/
       cursor: pointer;
+      transition: color .3s;
       &:hover {
-        color: #d95353;
+        color: #288af0;
       }
     }
     .obj-info {

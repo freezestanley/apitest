@@ -1,5 +1,6 @@
 <template>
   <div class="api-index">
+    <div class="logo"></div>
     <api-nav :treeData="treeData"></api-nav>
     <api-template :item="item" @show="show" @hide="hide"></api-template>
     <api-popover :visible="showPopover" :details="details"></api-popover>
@@ -93,7 +94,16 @@ export default {
   .api-index {
     position: relative;
     /*display: flex;*/
-    padding: 0 20px 60px 390px;
+    /*margin-top: 50px;*/
+    margin: 0 20px 60px 590px;
     box-sizing: border-box;
+    .logo {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 200px;
+      background-color: #efefef;
+    }
   }
 </style>

@@ -18,7 +18,7 @@ export default {
 <style lang='scss' scoped>
   .api-nav {
     position: fixed;
-    left: 0;
+    left: 200px;
     top: 0;
     bottom: 0;
     padding: 20px 0;
