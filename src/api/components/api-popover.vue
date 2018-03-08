@@ -1,7 +1,11 @@
 <template>
   <div class="api-popover" :style="{display: viewShow}">
     <ul>
-      <li v-for="(value, key) in details" :key="key"><span>{{key}}:</span> {{value}}</li>
+      <li v-for="(value, key) in details" :key="key">
+        <span class="title">{{key}}:</span>
+        <api-type v-if="key === 'type'" :type="value"></api-type>
+        <span v-else>{{value}}</span>
+      </li>
     </ul>
   </div>
 </template>
@@ -52,8 +56,9 @@ export default {
       padding: 3px 0;
       list-style: none;
       line-height: 24px;
-      & > li span{
+      & > li .title{
         color: #d95353;
+        vertical-align: top
       }
     }
   }

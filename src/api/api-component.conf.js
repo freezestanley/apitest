@@ -14,5 +14,6 @@ export default {
   'api-nav': '/components/api-nav',
   'api-nav-item': '/components/api-nav-item',
   'api-table': '/components/api-table',
+  'api-type': '/components/api-type',
   'api-template': '/api-template'
 }
