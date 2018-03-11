@@ -10,6 +10,11 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'index',
+      component: api
+    },
+    {
+      path: '/HelloWorld',
       name: 'HelloWorld',
       component: HelloWorld
     },
