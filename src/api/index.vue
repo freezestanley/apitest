@@ -8,9 +8,7 @@
 </template>
 
 <script>
-import api from '../../config/api.conf'
-import path from 'path'
-// let indexDir = 'json/index.json'
+let indexDir = 'json/index.json'
 export default {
   name: 'index',
   data () {
@@ -53,23 +51,13 @@ export default {
       }
     },
     getNavData: function () {
-      // this.axios.get(`/json/index.json`).then((response) => {
-      //   let data = [response.data]
-      //   this.parseFiles(data)
-      //   this.treeData = data
-      // })
-      let indexDir = path.join(api.docpath, 'json/index.json')
-      let data = require(indexDir)
-      // let data = require('$doc/' + indexDir)
+      let data = require('$doc/' + indexDir)
       data = [data.children[1]]
       this.parseFiles(data)
       // console.log('data', data)
       this.treeData = data
     },
     getData: function (path) {
-      // this.axios.get(path).then((response) => {
-      //   this.item = response.data
-      // })
       if (!path) {
         this.item = {}
         return

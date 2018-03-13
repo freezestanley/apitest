@@ -1,3 +1,3 @@
 module.exports = {
-  'docpath': '../../doc'
+  'docpath': '../doc/'
 }
