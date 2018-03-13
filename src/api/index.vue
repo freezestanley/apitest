@@ -30,7 +30,7 @@ export default {
   methods: {
     parseFiles: function (data, parentLevel) {
       for (let val of data) {
-        val.path = val.path.replace('doc\\', '')
+        val.path = val.path.indexOf('doc\\') > -1 ? val.path.replace('doc\\json/', '') : val.path.replace('doc/json/', '') 
         if (val.type === 'file') {
           val.name = val.name.replace('.json', '')
         }

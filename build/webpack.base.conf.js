@@ -3,7 +3,7 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
-const apiConfig = require('./api-loader.conf.js')
+// const apiConfig = require('./api-loader.conf.js')
 const api = require('../config/api.conf.js')
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -53,12 +53,12 @@ module.exports = {
         loader: 'babel-loader',
         include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
       },
-      {
-        test: /\.(js|vue)$/,
-        loader: 'apiloader',
-        options: apiConfig,
-        include: [resolve('src')]
-      },
+      // {
+      //   test: /\.(js|vue)$/,
+      //   loader: 'apiloader',
+      //   options: apiConfig,
+      //   include: [resolve('src')]
+      // },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
