@@ -37,6 +37,7 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
+      '$doc': resolve('doc')
     }
   },
   module: {
@@ -54,7 +55,7 @@ module.exports = {
       },
       {
         test: /\.(js|vue)$/,
-        loader: 'apiloader', 
+        loader: 'apiloader',
         options: apiConfig,
         include: [resolve('src')]
       },

@@ -107,6 +107,7 @@ export default {
       }
     }
     .params-list a {
+      display: inline-block;
       margin-right: 10px;
       color: #4078c0;
       /*text-decoration: underline;*/
