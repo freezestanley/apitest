@@ -8,7 +8,9 @@
 </template>
 
 <script>
-let indexDir = 'json/index.json'
+import api from '../../config/api.conf'
+import path from 'path'
+// let indexDir = 'json/index.json'
 export default {
   name: 'index',
   data () {
@@ -56,7 +58,9 @@ export default {
       //   this.parseFiles(data)
       //   this.treeData = data
       // })
-      let data = require('../../doc/' + indexDir)
+      let indexDir = path.join(api.docpath, 'json/index.json')
+      let data = require(indexDir)
+      // let data = require('$doc/' + indexDir)
       data = [data.children[1]]
       this.parseFiles(data)
       // console.log('data', data)
@@ -70,7 +74,7 @@ export default {
         this.item = {}
         return
       }
-      this.item = require('../../doc/' + path)
+      this.item = require('$doc/' + path)
     },
     show: function (item) {
       this.details = item
