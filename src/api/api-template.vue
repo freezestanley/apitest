@@ -1,5 +1,5 @@
 <script>
-import apiComponent from './api-component.conf.js'
+import apiComponent from '../../config/api-component.conf.js'
 
 export default {
   functional: true,

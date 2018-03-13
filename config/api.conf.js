@@ -1,3 +1,3 @@
 module.exports = {
-  "@@": '../../doc'
+  'docpath': '../doc/'
 }
