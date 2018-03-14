@@ -1,8 +1,10 @@
 <template>
   <div class="api-index">
-    <div class="logo"></div>
-    <api-nav :treeData="treeData"></api-nav>
-    <api-template :item="item" @show="show" @hide="hide"></api-template>
+    <div :class="['logo', fold ? 'fold' : '']"><span class="stretch-icon" @click="toggle()"></span></div>
+    <api-nav class="nav-box" :treeData="treeData"></api-nav>
+    <div class="main">
+      <api-template :item="item" @show="show" @hide="hide"></api-template>
+    </div>
     <api-popover :visible="showPopover" :details="details"></api-popover>
   </div>
 </template>
@@ -17,7 +19,8 @@ export default {
       treeData: [],
       path: '',
       showPopover: false,
-      details: {}
+      details: {},
+      fold: false
     }
   },
   created () {
@@ -70,6 +73,9 @@ export default {
     },
     hide: function () {
       this.showPopover = false
+    },
+    toggle: function () {
+      this.fold = !this.fold
     }
   },
   beforeRouteUpdate (to, from, next) {
@@ -84,18 +90,45 @@ export default {
 <style lang='scss'>
   @import '~@/assets/scss/_reset';
   .api-index {
-    position: relative;
-    /*display: flex;*/
-    /*margin-top: 50px;*/
-    margin: 0 20px 60px 590px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
     box-sizing: border-box;
     .logo {
-      position: fixed;
-      left: 0;
-      top: 0;
-      bottom: 0;
+      position: relative;
       width: 200px;
+      height: 100%;
       background-color: #efefef;
+      transition: all .3s;
+      .stretch-icon {
+        display: inline-block;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        width: 20px;
+        height: 20px;
+        background: url(~@/assets/images/stretch-icon.png) no-repeat;
+        background-size: contain;
+        z-index: 10;
+      }
+      &.fold {
+        width: 20px;
+        .stretch-icon {
+          transform: rotate(180deg);
+        }
+      }
+    }
+    .nav-box {
+      height: 100%;
+    }
+    .main {
+      flex: 1;
+      padding: 0 30px;
+      height: 100%;
+      overflow-y: auto;
     }
   }
 </style>
