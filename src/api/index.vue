@@ -8,7 +8,7 @@
 </template>
 
 <script>
-let indexDir = 'json/index.json'
+let indexDir = 'index.json'
 export default {
   name: 'index',
   data () {
@@ -30,7 +30,7 @@ export default {
   methods: {
     parseFiles: function (data, parentLevel) {
       for (let val of data) {
-        val.path = val.path.indexOf('doc\\') > -1 ? val.path.replace('doc\\json/', '') : val.path.replace('doc/json/', '') 
+        val.path = val.path.indexOf('doc\\') > -1 ? val.path.replace('doc\\json/', '') : val.path.replace('doc/json/', '')
         if (val.type === 'file') {
           val.name = val.name.replace('.json', '')
         }
