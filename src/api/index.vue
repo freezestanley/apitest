@@ -1,6 +1,6 @@
 <template>
   <div class="api-index">
-    <div :class="['logo', fold ? 'fold' : '']"><span class="stretch-icon" @click="toggle()"><i></i></span></div>
+    <div :class="['logo', fold ? 'fold' : '']"><span class="stretch-icon" @click="toggle()"></span></div>
     <api-nav class="nav-box" :treeData="treeData"></api-nav>
     <div class="main">
       <api-template :item="item" @show="show" @hide="hide"></api-template>
@@ -103,10 +103,14 @@ export default {
       height: 100%;
       background-color: #efefef;
       transition: all .3s;
+      .stretch-icon {
+        bottom: 0;
+      }
       &.fold {
-        width: 20px;
+        width: 0;
         .stretch-icon {
           transform: rotate(180deg);
+          right: -18px;
         }
       }
     }
@@ -123,18 +127,27 @@ export default {
     .stretch-icon {
       display: inline-block;
       position: absolute;
-      right: 0;
-      top: 50%;
-      width: 20px;
-      height: 20px;
-      background: url(~@/assets/images/stretch-icon.png) no-repeat;
-      background-size: contain;
+      right: -18px;
+      width: 16px;
+      height: 26px;
+      background-color: #f5f5f5;
+      border: 1px solid #e0e1e5;
+      border-radius: 0 4px 4px 0;
+      /*background: url(~@/assets/images/stretch-icon.png) no-repeat;*/
+      /*background-size: contain;*/
       z-index: 10;
-      border-radius: 50%;
-      /*&:before {*/
-        /*content: "\E60C";*/
-        /*color: #409eff*/
-      /*}*/
+      /*border-radius: 50%;*/
+      cursor: pointer;
+      &:before {
+        position: absolute;
+        left: 1px;
+        top: 8px;
+        content: " ";
+        width: 0;
+        height: 0;
+        border: 5px solid transparent;
+        border-right-color: #aaa;
+      }
     }
   }
 </style>

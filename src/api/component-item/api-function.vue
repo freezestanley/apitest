@@ -14,10 +14,10 @@ let transformData = (list, parentLevel, parentLevelName) => {
   for (let val of list) {
     if (parentLevel === undefined) {
       val.level = 0
-      val.levelName = `${val.name}`
+      // val.levelName = `${val.name}`
     } else {
       val.level = parentLevel + 1
-      val.levelName = `${parentLevelName} > ${val.name}`
+      // val.levelName = `${parentLevelName} > ${val.name}`
     }
     if (val.return && val.return.defVal) {
       val.return.default = val.return.defVal.default
@@ -25,7 +25,7 @@ let transformData = (list, parentLevel, parentLevelName) => {
       util.sort(val.return)
     }
     allFunctions.push(val)
-    transformData(val.function, val.level, val.levelName)
+    transformData(val.function, val.level)
   }
 }
 export default {
@@ -60,8 +60,8 @@ export default {
           descript: val.descript,
           params: val.params,
           return: val.return,
-          level: val.level,
-          levelName: val.levelName
+          level: val.level
+          // levelName: val.levelName
         }
       }
       allFunctions = util.transferList(list)

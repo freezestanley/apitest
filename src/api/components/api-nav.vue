@@ -29,21 +29,29 @@ export default {
 <style lang='scss' scoped>
   .api-nav {
     position: relative;
-    padding: 20px 0;
     width: 350px;
-    overflow-y: auto;
     box-sizing: border-box;
     border-right: 1px solid rgba(0,0,0,.07);
     transition: all .3s;
+    .stretch-icon {
+      bottom: 0;
+    }
     &.fold {
-      width: 20px;
+      width: 0;
       border-right: none;
       & > .nav-list-box {
         display: none;
       }
       .stretch-icon {
         transform: rotate(180deg);
+        right: -18px;
       }
+    }
+    .nav-list-box {
+      padding: 20px 0;
+      height: 100%;
+      overflow-y: auto;
+      box-sizing: border-box;
     }
   }
 </style>
