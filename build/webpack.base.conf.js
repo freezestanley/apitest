@@ -8,7 +8,7 @@ const api = require('../config/api.conf.json')
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
-console.log('=========================', path.join(__dirname, api.docpath, '/json'))
+
 const createLintingRule = () => ({
   test: /\.(js|vue)$/,
   loader: 'eslint-loader',
