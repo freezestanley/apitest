@@ -17,6 +17,7 @@
               <li v-for="(value, _key) in val[key]" :key="_key">
                 <span>{{_key}}:</span>
                 <api-type v-if="_key === 'type'" :type="value" class="label-text"></api-type>
+                <a v-else-if="_key === 'descript'" @mouseenter="show({'descript': value})" @mouseleave="hide()">descript</a>
                 <div v-else class="label-text">
                   {{value}}
                 </div>
@@ -106,16 +107,23 @@ export default {
         text-align: center;
       }
     }
-    .params-list a {
-      display: inline-block;
-      margin-right: 10px;
+    a {
       color: #4078c0;
-      /*text-decoration: underline;*/
       cursor: pointer;
-      transition: color .3s;
       &:hover {
         color: #288af0;
       }
+    }
+    .params-list a {
+      display: inline-block;
+      margin-right: 10px;
+      /*color: #4078c0;*/
+      /*text-decoration: underline;*/
+      /*cursor: pointer;*/
+      transition: color .3s;
+      /*&:hover {*/
+        /*color: #288af0;*/
+      /*}*/
     }
     .obj-info {
       padding: 3px 0;

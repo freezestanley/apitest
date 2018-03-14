@@ -35,19 +35,9 @@ export default {
     box-sizing: border-box;
     border-right: 1px solid rgba(0,0,0,.07);
     transition: all .3s;
-    .stretch-icon {
-      display: inline-block;
-      position: absolute;
-      right: 0;
-      top: 50%;
-      width: 20px;
-      height: 20px;
-      background: url(~@/assets/images/stretch-icon.png) no-repeat;
-      background-size: contain;
-      z-index: 10;
-    }
     &.fold {
       width: 20px;
+      border-right: none;
       & > .nav-list-box {
         display: none;
       }

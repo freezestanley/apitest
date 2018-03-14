@@ -1,6 +1,6 @@
 <template>
   <div class="api-index">
-    <div :class="['logo', fold ? 'fold' : '']"><span class="stretch-icon" @click="toggle()"></span></div>
+    <div :class="['logo', fold ? 'fold' : '']"><span class="stretch-icon" @click="toggle()"><i></i></span></div>
     <api-nav class="nav-box" :treeData="treeData"></api-nav>
     <div class="main">
       <api-template :item="item" @show="show" @hide="hide"></api-template>
@@ -103,17 +103,6 @@ export default {
       height: 100%;
       background-color: #efefef;
       transition: all .3s;
-      .stretch-icon {
-        display: inline-block;
-        position: absolute;
-        right: 0;
-        top: 50%;
-        width: 20px;
-        height: 20px;
-        background: url(~@/assets/images/stretch-icon.png) no-repeat;
-        background-size: contain;
-        z-index: 10;
-      }
       &.fold {
         width: 20px;
         .stretch-icon {
@@ -126,9 +115,26 @@ export default {
     }
     .main {
       flex: 1;
-      padding: 0 30px;
+      padding: 0 30px 30px;
       height: 100%;
       overflow-y: auto;
+      box-sizing: border-box;
+    }
+    .stretch-icon {
+      display: inline-block;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      width: 20px;
+      height: 20px;
+      background: url(~@/assets/images/stretch-icon.png) no-repeat;
+      background-size: contain;
+      z-index: 10;
+      border-radius: 50%;
+      /*&:before {*/
+        /*content: "\E60C";*/
+        /*color: #409eff*/
+      /*}*/
     }
   }
 </style>
