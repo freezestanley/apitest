@@ -2,18 +2,14 @@
   <div class="nav-list">
     <ul>
       <li v-for="(val, key) in treeData" :key="key">
-        <span
-          v-if="val.type === 'folder'"
-          class="icon"
-          :class="{'expand': !val.open, 'collapse': val.open}"
-          @click="toggle(val)">
-        </span>
+        <div class="folder-type" v-if="val.type === 'folder'" @click="toggle(val)">
+          <span :class="['icon', {'expand': !val.open}, {'collapse': val.open}]"></span>
+          <span class="name">{{val.name}}</span>
+        </div>
         <router-link
           :to="{name: $route.name, query: {path: val.path}}"
-          v-if="val.type === 'file'"
-          class="name"
-          :class="{'selected': val.path === $route.query.path}">{{val.name}}</router-link>
-        <span class="name" v-else>{{val.name}}</span>
+          v-else-if="val.type === 'file'"
+          :class="['name', {'selected': val.path === $route.query.path}]">{{val.name}}</router-link>
         <api-nav-item :treeData="val.children" v-show="val.open"></api-nav-item>
       </li>
     </ul>
@@ -44,6 +40,10 @@ export default {
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
+    }
+    .folder-type {
+      display: inline-block;
+      cursor: pointer;
     }
     .name {
       display: inline-block;
